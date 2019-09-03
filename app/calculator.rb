@@ -3,32 +3,84 @@ require_relative './token'
 
 class Calculator
   attr_reader :line
-  def initialize(buffer)
+  def initialize()
     @line = Line.new
-    @buffer = buffer
   end
 
-  def read
-    @buffer = gets.chomp
-  end
-  
-  def parse
-    tokens = @buffer.split(' ')
-    tokens.each do |word|
-      puts word
-      case word
-      when 'glob'
-        @line.add(Token.new(word, 1))
-      when 'prok'
-        @line.add(Token.new(word, 5))
-      when 'pish'
-        @line.add(Token.new(word, 10))
-      when 'tegj'
-        @line.add(Token.new(word, 50))
-      else
-        puts('Word Invalid')
+  def read(path)
+    IO.foreach(path) do |line|
+      if !line.nil? && !line.empty?
+        puts line
+        result = parse(line)
+        puts result
       end
     end
+  end
+  
+  def parse (file_line)
+    tokens = file_line.split(' ')
+    is_position = tokens.find_index('is')
+    if !is_position
+      'I have no idea what you are talking about'
+    else 
+      if tokens.last == '?'
+        tokens.delete('?')
+        galaxy_number = tokens[is_position+1, tokens.size]
+        galaxy_number.each do |token|
+          number_value = @line.dictionary.fetch(token)
+          if !number_value
+            puts 'I have no idea what you are talking about'
+            break;
+          else
+            puts number_value
+            @line.add_buffer(Token.new(token, number_value))
+          end
+        end
+        @line.accumulate
+
+      elsif tokens.last == 'Credits' 
+        galaxy_number = tokens[0, is_position]
+        result = tokens[is_position + 1 ]
+        galaxy_number.each do |number|
+          number_value = @line.dictionary[number]
+          if !number_value
+            preliminar_number = galaxy_number.reject{|n| n === number}
+            aux_line = Line.new
+            aux_line.dictionary = @line.dictionary
+            preliminar_number.each do |n|
+              aux_line.add_buffer(Token.new(n, aux_line.dictionary[n]))
+            end
+            preliminar_result = aux_line.accumulate
+            @line.dictionary[number] = Integer(result) / preliminar_result
+          end
+        end
+
+      else 
+        roman_number = tokens[is_position + 1]
+        galaxy_number = tokens[is_position - 1]
+
+        case roman_number
+        when 'I'
+          @line.add_dictionary(galaxy_number, 1)
+        when 'V'
+          @line.add_dictionary(galaxy_number, 5)
+        when 'X'
+          @line.add_dictionary(galaxy_number, 10)
+        when 'L'
+          @line.add_dictionary(galaxy_number, 50)
+        when 'C'
+          @line.add_dictionary(galaxy_number, 100)
+        when 'D'
+          @line.add_dictionary(galaxy_number, 500)
+        when 'M'
+          @line.add_dictionary(galaxy_number, 1000)
+        
+        else
+          puts "the romans don't know this number"
+        end
+
+      end
+  end
   end
   
   def calculate

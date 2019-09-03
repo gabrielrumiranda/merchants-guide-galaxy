@@ -1,10 +1,11 @@
 require_relative './token'
 
 class Line 
-  attr_accessor :tokens, :accumulate
+  attr_accessor :tokens, :accumulate, :dictionary
 
   def initialize
     @tokens = Array.new
+    @dictionary = Hash.new
     @accumulate = 0
   end
 
@@ -14,17 +15,18 @@ class Line
 
   def validate_push(value)
     last_numbers = @tokens.last(3)
-
-    if (last_numbers.size < 3)
+  
+    if last_numbers.size < 3
       true
-    else
+    elsif last_numbers.size >= 3
       last_numbers.uniq.size > 1
-
+    else
+      false
     end
   end
 
-  def add(token)
-    if(validate_push(token))
+  def add_buffer(token)
+    if token.value && validate_push(token)
       if(@tokens.last) 
 
         if(@tokens.last.value >= token.value)
@@ -37,6 +39,10 @@ class Line
       end
       @tokens.push(token)
     end
+  end
+
+  def add_dictionary (name, value)
+    @dictionary[name] = value
   end
 
   def print
