@@ -17,7 +17,6 @@ class Line
 
   def validate_push(_value)
     last_numbers = @tokens.last(3)
-
     if last_numbers.size < 3
       true
     elsif last_numbers.size >= 3
@@ -29,7 +28,6 @@ class Line
 
   def add_buffer(token)
     roman_values = [1, 5, 10, 50, 100, 500, 1000]
-
     if token.value && validate_push(token)
       if @tokens.last
         if !roman_values.include?(token.value)
