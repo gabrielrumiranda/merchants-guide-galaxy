@@ -1,11 +1,13 @@
+# frozen_string_literal: true
+
 require_relative './token'
 
-class Line 
+class Line
   attr_accessor :tokens, :accumulate, :dictionary
 
   def initialize
-    @tokens = Array.new
-    @dictionary = Hash.new
+    @tokens = []
+    @dictionary = {}
     @accumulate = 0
   end
 
@@ -13,9 +15,9 @@ class Line
     @tokens.push(value)
   end
 
-  def validate_push(value)
+  def validate_push(_value)
     last_numbers = @tokens.last(3)
-  
+
     if last_numbers.size < 3
       true
     elsif last_numbers.size >= 3
@@ -26,31 +28,32 @@ class Line
   end
 
   def add_buffer(token)
-    if token.value && validate_push(token)
-      if(@tokens.last) 
+    roman_values = [1, 5, 10, 50, 100, 500, 1000]
 
-        if(@tokens.last.value >= token.value)
-          @accumulate += token.value
+    if token.value && validate_push(token)
+      if @tokens.last
+        if !roman_values.include?(token.value)
+          @accumulate *= token.value
         else
-          @accumulate = token.value - @accumulate
+          if @tokens.last.value >= token.value
+            @accumulate += token.value
+          else
+            @accumulate = token.value - @accumulate
+          end
         end
       else
-          @accumulate += token.value
+        @accumulate += token.value
       end
       @tokens.push(token)
     end
   end
 
-  def add_dictionary (name, value)
+  def add_dictionary(name, value)
     @dictionary[name] = value
   end
 
-  def print
-    @tokens.each do |token|
-      puts token.name
-    end
-    puts "Result: #{@accumulate}"
-  
+  def clean_line
+    @tokens.clear
+    @accumulate = 0
   end
-
 end
