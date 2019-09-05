@@ -1,9 +1,10 @@
 # frozen_string_literal: true
-
+#
 require_relative './token'
 
 class Line
   attr_accessor :tokens, :accumulate, :dictionary
+  ROMAN_VALUES = [1, 5, 10, 50, 100, 500, 1000].freeze
 
   def initialize
     @tokens = []
@@ -27,23 +28,21 @@ class Line
   end
 
   def add_buffer(token)
-    roman_values = [1, 5, 10, 50, 100, 500, 1000]
-    if token.value && validate_push(token)
-      if @tokens.last
-        if !roman_values.include?(token.value)
-          @accumulate *= token.value
-        else
-          if @tokens.last.value >= token.value
-            @accumulate += token.value
-          else
-            @accumulate = token.value - @accumulate
-          end
-        end
-      else
+    return unless token.value && validate_push(token)
+
+    if @tokens.last
+      if !ROMAN_VALUES.include?(token.value)
+        @accumulate *= token.value
+      elsif @tokens.last.value >= token.value
         @accumulate += token.value
+      else
+        @accumulate = token.value - @accumulate
       end
-      @tokens.push(token)
+    else
+      @accumulate += token.value
     end
+
+    @tokens.push(token)
   end
 
   def add_dictionary(name, value)
