@@ -6,8 +6,8 @@ require_relative './dictionary'
 
 #
 class Parser
-
   attr_reader :line
+  
   def initialize
     @dictionary = Dictionary.new
   end

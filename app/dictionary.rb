@@ -1,7 +1,8 @@
 class Dictionary
   attr_accessor :words
-  def initialize(words: {})
-    @words = words
+
+  def initialize
+    @words = {}
   end
 
   def add_word(name, value)

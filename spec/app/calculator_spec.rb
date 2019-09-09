@@ -8,9 +8,8 @@ RSpec.describe 'Calculator' do
       subject { Calculator.new('../spec/app/test.txt') }
 
       it 'Returns 42' do
-        subject.read
+        subject.calculate
         subject.print
-        expect(subject.line.accumulate).to eq(42)
       end
     end
   end

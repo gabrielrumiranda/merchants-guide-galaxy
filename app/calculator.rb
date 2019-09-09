@@ -1,26 +1,24 @@
 require_relative './parser'
+require_relative './input_repository.rb'
 #
 class Calculator
-
   attr_reader :parser, :path
+  
   def initialize(path)
     @parser = Parser.new
-    @path = File.join(File.dirname(__FILE__), path)
+    @repository = InputRepository.new(path)
     @parsed_lines = []
-    @file_lines = []
   end
 
-  def read
-    IO.foreach(@path) do |file_line|
-      @file_lines << file_line
-      unless file_line.nil? && file_line.empty?
-        @parsed_lines << @parser.parse(file_line)
-      end
+  def calculate
+    @repository.read
+    @repository.file_lines.each do |file_line|
+      @parsed_lines << @parser.parse(file_line)
     end
   end
 
   def print
-    @file_lines.zip(@parsed_lines).each do |file_line, parsed_line|
+    @repository.file_lines.zip(@parsed_lines).each do |file_line, parsed_line|
       puts file_line
       puts parsed_line
     end

@@ -4,8 +4,8 @@ require_relative './token'
 require_relative './validator'
 
 class Line
-
   attr_accessor :tokens, :accumulate
+  
   def initialize
     @tokens = []
     @accumulate = 0
