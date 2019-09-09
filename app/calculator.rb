@@ -3,7 +3,7 @@ require_relative './input_repository.rb'
 #
 class Calculator
   attr_reader :parser, :path
-  
+
   def initialize(path)
     @parser = Parser.new
     @repository = InputRepository.new(path)

@@ -18,7 +18,7 @@ class InputRepository
     end
   end
 
-  def set_path(path)
+  def path(path)
     @path = File.join(File.dirname(__FILE__), path)
   end
 end
