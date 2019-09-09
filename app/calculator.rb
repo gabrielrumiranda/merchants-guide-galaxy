@@ -1,6 +1,7 @@
 require_relative './parser'
 #
 class Calculator
+
   attr_reader :parser, :path
   def initialize(path)
     @parser = Parser.new
@@ -11,7 +12,6 @@ class Calculator
 
   def read
     IO.foreach(@path) do |file_line|
-      @parser.line.clean_line
       @file_lines << file_line
       unless file_line.nil? && file_line.empty?
         @parsed_lines << @parser.parse(file_line)
