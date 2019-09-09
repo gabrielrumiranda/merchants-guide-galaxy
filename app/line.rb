@@ -5,14 +5,14 @@ require_relative './validator'
 
 class Line
   attr_accessor :tokens, :accumulate
-  
+
   def initialize
     @tokens = []
     @accumulate = 0
   end
 
-  def push(value)
-    @tokens.push(value)
+  def push(token)
+    @tokens.push(token)
   end
 
   def add_buffer(token)
