@@ -16,8 +16,8 @@ class Line
   end
 
   def add_buffer(token)
-    return unless token.value && Validator.validate_push(token)
-
+    return unless token.value && Validator.validate_push(token, @tokens)
+    
     if @tokens.last
       if !Validator.roman?(token.value)
         @accumulate *= token.value
