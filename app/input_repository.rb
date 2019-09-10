@@ -1,4 +1,4 @@
-class InputRepository 
+class InputRepository
   attr_accessor :file_lines, :path
 
   def initialize(path = '')

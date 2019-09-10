@@ -6,7 +6,8 @@ class Calculator
 
   def initialize(path)
     @parser = Parser.new
-    @repository = InputRepository.new(path)
+    @repository = InputRepository.new
+    @repository.set_path(path)
     @parsed_lines = []
   end
 

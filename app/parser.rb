@@ -4,7 +4,6 @@ require_relative './line'
 require_relative './token'
 require_relative './dictionary'
 
-#
 class Parser
   attr_reader :line
   
