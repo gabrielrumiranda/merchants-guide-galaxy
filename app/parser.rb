@@ -5,8 +5,8 @@ require_relative './token'
 require_relative './dictionary'
 
 class Parser
-  attr_reader :line
-  
+  attr_reader :dictionary
+
   def initialize
     @dictionary = Dictionary.new
   end
