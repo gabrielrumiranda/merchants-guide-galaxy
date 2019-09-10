@@ -1,16 +1,14 @@
 class InputRepository 
-  attr_accessor :file_lines
+  attr_accessor :file_lines, :path
 
   def initialize(path = '')
     unless path.nil? || path.empty?
-      puts path
       @path = File.join(File.dirname(__FILE__), path)
     end
     @file_lines = []
   end
 
   def read
-    puts 'teste'
     IO.foreach(@path) do |file_line|
       next if file_line.nil? || file_line.empty?
 
@@ -18,7 +16,12 @@ class InputRepository
     end
   end
 
-  def path(path)
-    @path = File.join(File.dirname(__FILE__), path)
+  def set_path(path)
+    if File.file?(path) && File.exist?(path)
+      @path = path
+    else
+      puts 'Invalid path'
+      @path = ''
+    end
   end
 end
