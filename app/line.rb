@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 #
 require_relative './token'
-require_relative './validator'
+require_relative './token_validator'
 
 class Line
   attr_accessor :tokens, :accumulate
@@ -16,10 +16,10 @@ class Line
   end
 
   def add_buffer(token)
-    return unless token.value && Validator.validate_push(token, @tokens)
+    return unless token.value && TokenValidator.validate_push(token, @tokens)
     
     if @tokens.last
-      if !Validator.roman?(token.value)
+      if !TokenValidator.roman?(token.value)
         @accumulate *= token.value
       elsif @tokens.last.value >= token.value
         @accumulate += token.value

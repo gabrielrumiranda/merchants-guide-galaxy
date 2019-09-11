@@ -2,34 +2,59 @@
 require_relative '../spec_helper'
 
 RSpec.describe 'Line' do
+
+  let(:roman_i) { Token.new('I', 1) }
+  let(:roman_v)  { Token.new('V', 5) }
+  let(:roman_x)  { Token.new('X', 10) }
+  let(:galaxy_number) { Token.new('glub', 2) }
+
   describe '.push' do
     context 'Tokens is empty and push some token' do
       subject { Line.new }
 
-      it 'Returns an array with one token' do
-        token = Token.new('X', 10)
-        subject.push(token)
-        expect(subject.tokens).not_to be_empty
-        expect(subject.tokens).to include(token)
-        expect(subject).to have_exactly(1).tokens
+      before do
+        subject.push(roman_x)
       end
+
+      it 'Line.tokens is not empty' do
+        expect(subject.tokens).not_to be_empty
+      end
+
+      it 'Line.tokens have exaclty 1 token' do
+        expect(subject.tokens).to have_exactly(1).tokens
+      end
+
+      it 'Line.tokens include X roman ' do
+        expect(subject.tokens).to include(roman_x)
+      end
+
     end
 
     context 'Tokens is not empty and push some token' do
       subject { Line.new }
 
       before do
-        token = Token.new('I', 1)
-        subject.push(token)
+        subject.push(roman_i)
+        subject.push(roman_x)
       end
 
-      it 'Returns an array with two tokens' do
-        token = Token.new('X', 10)
-        subject.push(token)
+      it 'Line.tokens is not empty' do
         expect(subject.tokens).not_to be_empty
-        expect(subject.tokens).to include(token)
-        expect(subject).to have_exactly(2).tokens
       end
+
+      it 'Line.tokens have exaclty 2 tokens' do
+        expect(subject.tokens).to have_exactly(2).tokens
+      end
+
+      it 'Line.tokens include X roman ' do
+        expect(subject.tokens).to include(roman_x)
+      end
+
+      it 'Line.tokens include I roman ' do
+        expect(subject.tokens).to include(roman_i)
+      end
+
+
     end
   end
 
@@ -37,12 +62,23 @@ RSpec.describe 'Line' do
     context 'Tokens is empty and push some token to buffer' do
       subject { Line.new }
 
-      it 'Returns an array with one token and accumulate equal 10' do
-        token = Token.new('X', 10)
-        subject.add_buffer(token)
+      before do
+        subject.add_buffer(roman_x)
+      end
+
+      it 'Line.tokens is not empty' do
         expect(subject.tokens).not_to be_empty
-        expect(subject.tokens).to include(token)
-        expect(subject).to have_exactly(1).tokens
+      end
+
+      it 'Line.tokens have exaclty 1 token' do
+        expect(subject.tokens).to have_exactly(1).tokens
+      end
+
+      it 'Line.tokens include X roman ' do
+        expect(subject.tokens).to include(roman_x)
+      end
+
+      it 'Line.accumulate is equal 10' do
         expect(subject.accumulate).to eq(10)
       end
     end
@@ -51,16 +87,27 @@ RSpec.describe 'Line' do
       subject { Line.new }
 
       before do
-        token = Token.new('I', 1)
-        subject.add_buffer(token)
+        subject.add_buffer(roman_i)
+        subject.add_buffer(roman_v)
       end
 
-      it 'Returns an array with two tokens and accumulate equal 4' do
-        token = Token.new('V', 5)
-        subject.add_buffer(token)
+      it 'Line.tokens is not empty' do
         expect(subject.tokens).not_to be_empty
-        expect(subject.tokens).to include(token)
-        expect(subject).to have_exactly(2).tokens
+      end
+
+      it 'Line.tokens have exaclty 2 token' do
+        expect(subject.tokens).to have_exactly(2).tokens
+      end
+
+      it 'Line.tokens include I roman ' do
+        expect(subject.tokens).to include(roman_i)
+      end
+
+      it 'Line.tokens include V roman ' do
+        expect(subject.tokens).to include(roman_v)
+      end
+
+      it 'Line.accumulate is equal 4' do
         expect(subject.accumulate).to eq(4)
       end
     end
@@ -69,16 +116,27 @@ RSpec.describe 'Line' do
       subject { Line.new }
 
       before do
-        token = Token.new('X', 10)
-        subject.add_buffer(token)
+        subject.add_buffer(roman_x)
+        subject.add_buffer(roman_v)
       end
 
-      it 'Returns an array with two tokens and accumulate equal 15' do
-        token = Token.new('V', 5)
-        subject.add_buffer(token)
+      it 'Line.tokens is not empty' do
         expect(subject.tokens).not_to be_empty
-        expect(subject.tokens).to include(token)
-        expect(subject).to have_exactly(2).tokens
+      end
+
+      it 'Line.tokens have exaclty 2 token' do
+        expect(subject.tokens).to have_exactly(2).tokens
+      end
+
+      it 'Line.tokens include X roman ' do
+        expect(subject.tokens).to include(roman_x)
+      end
+
+      it 'Line.tokens include V roman ' do
+        expect(subject.tokens).to include(roman_v)
+      end
+
+      it 'Line.accumulate is equal 15' do
         expect(subject.accumulate).to eq(15)
       end
     end
@@ -87,16 +145,27 @@ RSpec.describe 'Line' do
       subject { Line.new }
 
       before do
-        token = Token.new('X', 10)
-        subject.add_buffer(token)
+        subject.add_buffer(roman_x)
+        subject.add_buffer(galaxy_number)
       end
 
-      it 'Returns an array with two tokens and accumulate equal 20' do
-        token = Token.new('glub', 2)
-        subject.add_buffer(token)
+      it 'Line.tokens is not empty' do
         expect(subject.tokens).not_to be_empty
-        expect(subject.tokens).to include(token)
-        expect(subject).to have_exactly(2).tokens
+      end
+
+      it 'Line.tokens have exaclty 2 token' do
+        expect(subject.tokens).to have_exactly(2).tokens
+      end
+
+      it 'Line.tokens include X roman ' do
+        expect(subject.tokens).to include(roman_x)
+      end
+
+      it 'Line.tokens include Glub roman ' do
+        expect(subject.tokens).to include(galaxy_number)
+      end
+
+      it 'Line.accumulate is equal 20' do
         expect(subject.accumulate).to eq(20)
       end
     end
@@ -105,18 +174,20 @@ RSpec.describe 'Line' do
       subject { Line.new }
 
       before do
-        token = Token.new('X', 10)
-        subject.add_buffer(token)
-        subject.add_buffer(token)
-        subject.add_buffer(token)
+        subject.add_buffer(roman_x)
+        subject.add_buffer(roman_x)
+        subject.add_buffer(roman_x)
       end
 
-      it 'Returns an array with three tokens and accumulate equal 30 and not have the fourth token' do
-        token = Token.new('X', 10)
-        subject.add_buffer(token)
+      it 'Line.tokens is not empty' do
         expect(subject.tokens).not_to be_empty
-        expect(subject.tokens). not_to include(token)
-        expect(subject).to have_exactly(3).tokens
+      end
+
+      it 'Line.tokens have exaclty 3 token' do
+        expect(subject.tokens).to have_exactly(3).tokens
+      end
+
+      it 'Line.accumulate is equal 30' do
         expect(subject.accumulate).to eq(30)
       end
     end
@@ -125,17 +196,28 @@ RSpec.describe 'Line' do
       subject { Line.new }
 
       before do
-        token = Token.new('X', 10)
-        subject.add_buffer(token)
+        subject.add_buffer(roman_i)
+        subject.add_buffer(roman_x)
       end
 
-      it 'Returns an array with one token and accumulate equal 10 and not have the second token' do
-        token = Token.new('M', 1000)
-        subject.add_buffer(token)
+      it 'Line.tokens is not empty' do
         expect(subject.tokens).not_to be_empty
-        expect(subject.tokens). not_to include(token)
-        expect(subject).to have_exactly(1).tokens
-        expect(subject.accumulate).to eq(10)
+      end
+
+      it 'Line.tokens have exaclty 1 token' do
+        expect(subject.tokens).to have_exactly(1).tokens
+      end
+
+      it 'Line.tokens include I roman ' do
+        expect(subject.tokens).to include(roman_i)
+      end
+
+      it 'Line.tokens not include X roman ' do
+        expect(subject.tokens).not_to include(roman_x)
+      end
+
+      it 'Line.accumulate is equal 1' do
+        expect(subject.accumulate).to eq(1)
       end
     end
   end

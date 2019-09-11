@@ -1,5 +1,7 @@
-require_relative './app/calculator.rb'
+require_relative './app/calculator'
+require_relative './app/input_repository'
 
-calculator = Calculator.new('spec/files_spec/test.txt')
+repository = InputRepository.new('spec/files_spec/test.txt')
+calculator = Calculator.new(repository: repository)
 calculator.calculate
 calculator.print
