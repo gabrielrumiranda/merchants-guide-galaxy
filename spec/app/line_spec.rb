@@ -18,7 +18,7 @@ RSpec.describe 'Line' do
     context 'Tokens is not empty and push some token' do
       subject { Line.new }
 
-      before(:example) do
+      before do
         token = Token.new('I', 1)
         subject.push(token)
       end
@@ -50,7 +50,7 @@ RSpec.describe 'Line' do
     context 'Have a Roman number in buffer and push a bigger roman number' do
       subject { Line.new }
 
-      before(:example) do
+      before do
         token = Token.new('I', 1)
         subject.add_buffer(token)
       end
@@ -68,7 +68,7 @@ RSpec.describe 'Line' do
     context 'Have a Roman number in buffer and push a smaller roman number' do
       subject { Line.new }
 
-      before(:example) do
+      before do
         token = Token.new('X', 10)
         subject.add_buffer(token)
       end
@@ -86,7 +86,7 @@ RSpec.describe 'Line' do
     context 'Have a Roman number in buffer and push a galaxy number' do
       subject { Line.new }
 
-      before(:example) do
+      before do
         token = Token.new('X', 10)
         subject.add_buffer(token)
       end
@@ -104,7 +104,7 @@ RSpec.describe 'Line' do
     context 'Have three equal Roman number in buffer and push a the same number' do
       subject { Line.new }
 
-      before(:example) do
+      before do
         token = Token.new('X', 10)
         subject.add_buffer(token)
         subject.add_buffer(token)
@@ -124,7 +124,7 @@ RSpec.describe 'Line' do
     context 'Have a Roman number in buffer and push an invalid roman number' do
       subject { Line.new }
 
-      before(:example) do
+      before do
         token = Token.new('X', 10)
         subject.add_buffer(token)
       end

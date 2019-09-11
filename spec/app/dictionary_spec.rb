@@ -15,7 +15,7 @@ RSpec.describe 'Dictionary' do
     context 'Words is not empty and add some word' do
       subject { Dictionary.new }
 
-      before(:example) do
+      before do
         subject.add_word('Plact', 52)
       end
 

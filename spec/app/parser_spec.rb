@@ -32,7 +32,7 @@ RSpec.describe 'Parser' do
     context 'Parse a valid Line' do
       subject { Parser.new }
 
-      before(:example) do
+      before do
         tokens = 'glob is I'.split(' ')
         is_position = tokens.find_index('is')
         subject.parse_roman_number(tokens, is_position)
