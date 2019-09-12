@@ -2,16 +2,17 @@ require_relative './parser'
 require_relative './input_repository.rb'
 #
 class Calculator
-  attr_reader :parser, :path
+  attr_reader :parser
 
   def initialize(parser: Parser.new, repository: InputRepository.new)
     @parser = parser
     @repository = repository
     @parsed_lines = []
+    @file_lines = @repository.read
   end
 
   def calculate!
-    @parsed_lines = @repository.read.map(&@parser.method(:parse))
+    @parsed_lines = @file_lines.map(&@parser.method(:parse))
   end
 
   def print
