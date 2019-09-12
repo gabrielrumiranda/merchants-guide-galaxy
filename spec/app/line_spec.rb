@@ -1,11 +1,11 @@
 # frozen_string_literal: true
+
 require_relative '../spec_helper'
 
 RSpec.describe 'Line' do
-
   let(:roman_i) { Token.new('I', 1) }
-  let(:roman_v)  { Token.new('V', 5) }
-  let(:roman_x)  { Token.new('X', 10) }
+  let(:roman_v) { Token.new('V', 5) }
+  let(:roman_x) { Token.new('X', 10) }
   let(:galaxy_number) { Token.new('glub', 2) }
 
   describe '.push' do
@@ -27,7 +27,6 @@ RSpec.describe 'Line' do
       it 'Line.tokens include X roman ' do
         expect(subject.tokens).to include(roman_x)
       end
-
     end
 
     context 'Tokens is not empty and push some token' do
@@ -53,8 +52,6 @@ RSpec.describe 'Line' do
       it 'Line.tokens include I roman ' do
         expect(subject.tokens).to include(roman_i)
       end
-
-
     end
   end
 

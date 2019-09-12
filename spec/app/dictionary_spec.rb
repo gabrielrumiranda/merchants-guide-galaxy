@@ -1,7 +1,8 @@
+# frozen_string_literal: true
+
 require_relative '../spec_helper'
 RSpec.describe 'Dictionary' do
   describe '.add_word' do
-
     context 'Words is empty and add some word' do
       subject { Dictionary.new }
       before { subject.add_word('Plact', 52) }

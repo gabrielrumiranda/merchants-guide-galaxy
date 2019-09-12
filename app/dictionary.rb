@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Dictionary
   attr_accessor :words
 

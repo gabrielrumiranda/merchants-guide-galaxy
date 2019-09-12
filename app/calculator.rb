@@ -1,6 +1,7 @@
+# frozen_string_literal: true
+
 require_relative './parser'
 require_relative './input_repository.rb'
-#
 class Calculator
   attr_reader :parser
 

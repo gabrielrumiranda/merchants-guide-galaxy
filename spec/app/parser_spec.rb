@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative '../spec_helper'
 
 RSpec.describe 'Parser' do
@@ -5,9 +7,7 @@ RSpec.describe 'Parser' do
     Parser.new(dictionary: dictionary)
   end
   describe '.parse_roman_number' do
-
     context 'Parse a valid Line' do
-
       let(:dictionary) { Dictionary.new }
 
       before do
@@ -30,7 +30,6 @@ RSpec.describe 'Parser' do
     end
 
     context 'Parse a invalid Line' do
-
       let(:dictionary) { Dictionary.new }
 
       before do

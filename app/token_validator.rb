@@ -1,4 +1,6 @@
-class TokenValidator 
+# frozen_string_literal: true
+
+class TokenValidator
   ROMAN_VALUES = [1, 5, 10, 50, 100, 500, 1000].freeze
 
   def self.valid_token_push?(token, buffer)

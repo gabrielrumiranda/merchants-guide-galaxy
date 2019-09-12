@@ -5,7 +5,6 @@ require_relative './token'
 require_relative './dictionary'
 
 class Parser
-
   def initialize(dictionary: Dictionary.new)
     @dictionary = dictionary
   end
@@ -83,7 +82,6 @@ class Parser
     tokens.delete('?')
     galaxy_number = tokens[is_position + 1, tokens.size]
     galaxy_number.each do |token|
-
       number_value = @dictionary.words.fetch(token)
 
       if !number_value
