@@ -10,7 +10,6 @@ RSpec.describe 'Dictionary' do
       before { dictionary.add_word('Plact', 52) }
 
       it 'Dictionary.words is equal {Plact => 52}' do
-        puts dictionary.words
         expect(dictionary.words).to eq('Plact' => 52)
       end
     end

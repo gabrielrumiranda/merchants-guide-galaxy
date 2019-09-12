@@ -63,6 +63,7 @@ class Parser
 
       preliminar_number = galaxy_number.reject { |n| n == number }
       preliminar_result = calculate_preliminar_number(preliminar_number)
+      next if preliminar_result == 0
       @dictionary.add_word(number, Integer(result) / preliminar_result.to_f)
     end
   end
@@ -86,7 +87,6 @@ class Parser
 
       if !number_value
         puts 'I have no idea what you are talking about'
-        0
         break
       else
         line.add_buffer(Token.new(token, number_value))
