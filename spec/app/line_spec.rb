@@ -10,98 +10,58 @@ RSpec.describe 'Line' do
 
   describe '.push' do
     context 'Tokens is empty and push some token' do
-      subject { Line.new }
+      subject(:line) { Line.new }
 
       before do
-        subject.push(roman_x)
+        line.push(roman_x)
       end
 
-      it 'Line.tokens is not empty' do
-        expect(subject.tokens).not_to be_empty
-      end
-
-      it 'Line.tokens have exaclty 1 token' do
-        expect(subject.tokens).to have_exactly(1).tokens
-      end
-
-      it 'Line.tokens include X roman ' do
-        expect(subject.tokens).to include(roman_x)
+      it 'Line.tokens is equal a array with the pushed tokens' do
+        expect(subject.tokens).to eq([roman_x])
       end
     end
 
     context 'Tokens is not empty and push some token' do
-      subject { Line.new }
+      subject(:line) { Line.new }
 
       before do
-        subject.push(roman_i)
-        subject.push(roman_x)
+        line.push(roman_i)
+        line.push(roman_x)
       end
 
-      it 'Line.tokens is not empty' do
-        expect(subject.tokens).not_to be_empty
-      end
-
-      it 'Line.tokens have exaclty 2 tokens' do
-        expect(subject.tokens).to have_exactly(2).tokens
-      end
-
-      it 'Line.tokens include X roman ' do
-        expect(subject.tokens).to include(roman_x)
-      end
-
-      it 'Line.tokens include I roman ' do
-        expect(subject.tokens).to include(roman_i)
+      it 'Line.tokens is equal a array with the two pushed tokens' do
+        expect(line.tokens).to eq([roman_i, roman_x])
       end
     end
   end
 
   describe '.add_buffer' do
     context 'Tokens is empty and push some token to buffer' do
-      subject { Line.new }
+      subject(:line) { Line.new }
 
       before do
-        subject.add_buffer(roman_x)
+        line.add_buffer(roman_x)
       end
 
-      it 'Line.tokens is not empty' do
-        expect(subject.tokens).not_to be_empty
-      end
-
-      it 'Line.tokens have exaclty 1 token' do
-        expect(subject.tokens).to have_exactly(1).tokens
-      end
-
-      it 'Line.tokens include X roman ' do
-        expect(subject.tokens).to include(roman_x)
+      it 'Line.tokens is equal the added token' do
+        expect(line.tokens).to eql([roman_x])
       end
 
       it 'Line.accumulate is equal 10' do
-        expect(subject.accumulate).to eq(10)
+        expect(line.accumulate).to eq(10)
       end
     end
 
     context 'Have a Roman number in buffer and push a bigger roman number' do
-      subject { Line.new }
+      subject(:line) { Line.new }
 
       before do
-        subject.add_buffer(roman_i)
-        subject.add_buffer(roman_v)
+        line.add_buffer(roman_i)
+        line.add_buffer(roman_v)
       end
 
-      it 'Line.tokens is not empty' do
-        expect(subject.tokens).not_to be_empty
-      end
-
-      it 'Line.tokens have exaclty 2 token' do
-        expect(subject.tokens).to have_exactly(2).tokens
-      end
-
-      it 'Line.tokens include I roman ' do
-        expect(subject.tokens).to include(roman_i)
-      end
-
-      it 'Line.tokens include V roman ' do
-        expect(subject.tokens).to include(roman_v)
+      it 'Line.tokens is equal the added tokens' do
+        expect(subject.tokens).to eq([roman_i, roman_v])
       end
 
       it 'Line.accumulate is equal 4' do
@@ -110,27 +70,15 @@ RSpec.describe 'Line' do
     end
 
     context 'Have a Roman number in buffer and push a smaller roman number' do
-      subject { Line.new }
+      subject(:line) { Line.new }
 
       before do
-        subject.add_buffer(roman_x)
-        subject.add_buffer(roman_v)
+        line.add_buffer(roman_x)
+        line.add_buffer(roman_v)
       end
 
-      it 'Line.tokens is not empty' do
-        expect(subject.tokens).not_to be_empty
-      end
-
-      it 'Line.tokens have exaclty 2 token' do
-        expect(subject.tokens).to have_exactly(2).tokens
-      end
-
-      it 'Line.tokens include X roman ' do
-        expect(subject.tokens).to include(roman_x)
-      end
-
-      it 'Line.tokens include V roman ' do
-        expect(subject.tokens).to include(roman_v)
+      it 'Line.tokens is equal the added tokens' do
+        expect(subject.tokens).to eq([roman_x, roman_v])
       end
 
       it 'Line.accumulate is equal 15' do
@@ -139,27 +87,15 @@ RSpec.describe 'Line' do
     end
 
     context 'Have a Roman number in buffer and push a galaxy number' do
-      subject { Line.new }
+      subject(:line) { Line.new }
 
       before do
-        subject.add_buffer(roman_x)
-        subject.add_buffer(galaxy_number)
+        line.add_buffer(roman_x)
+        line.add_buffer(galaxy_number)
       end
 
-      it 'Line.tokens is not empty' do
-        expect(subject.tokens).not_to be_empty
-      end
-
-      it 'Line.tokens have exaclty 2 token' do
-        expect(subject.tokens).to have_exactly(2).tokens
-      end
-
-      it 'Line.tokens include X roman ' do
-        expect(subject.tokens).to include(roman_x)
-      end
-
-      it 'Line.tokens include Glub roman ' do
-        expect(subject.tokens).to include(galaxy_number)
+      it 'Line.tokens is equal the added tokens' do
+        expect(subject.tokens).to eq([roman_x, galaxy_number])
       end
 
       it 'Line.accumulate is equal 20' do
@@ -168,20 +104,16 @@ RSpec.describe 'Line' do
     end
 
     context 'Have three equal Roman number in buffer and push a the same number' do
-      subject { Line.new }
+      subject(:line) { Line.new }
 
       before do
-        subject.add_buffer(roman_x)
-        subject.add_buffer(roman_x)
-        subject.add_buffer(roman_x)
+        line.add_buffer(roman_x)
+        line.add_buffer(roman_x)
+        line.add_buffer(roman_x)
       end
 
-      it 'Line.tokens is not empty' do
-        expect(subject.tokens).not_to be_empty
-      end
-
-      it 'Line.tokens have exaclty 3 token' do
-        expect(subject.tokens).to have_exactly(3).tokens
+      it 'Line.tokens is equal the added tokens' do
+        expect(line.tokens).to eq([roman_x, roman_x, roman_x])
       end
 
       it 'Line.accumulate is equal 30' do
@@ -190,31 +122,19 @@ RSpec.describe 'Line' do
     end
 
     context 'Have a Roman number in buffer and push an invalid roman number' do
-      subject { Line.new }
+      subject(:line) { Line.new }
 
       before do
-        subject.add_buffer(roman_i)
-        subject.add_buffer(roman_x)
+        line.add_buffer(roman_i)
+        line.add_buffer(roman_x)
       end
 
-      it 'Line.tokens is not empty' do
-        expect(subject.tokens).not_to be_empty
-      end
-
-      it 'Line.tokens have exaclty 1 token' do
-        expect(subject.tokens).to have_exactly(1).tokens
-      end
-
-      it 'Line.tokens include I roman ' do
-        expect(subject.tokens).to include(roman_i)
-      end
-
-      it 'Line.tokens not include X roman ' do
-        expect(subject.tokens).not_to include(roman_x)
+      it 'Line.tokens is equal the first token pushed' do
+        expect(line.tokens).to eq([roman_i])
       end
 
       it 'Line.accumulate is equal 1' do
-        expect(subject.accumulate).to eq(1)
+        expect(line.accumulate).to eq(1)
       end
     end
   end
