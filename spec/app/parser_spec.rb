@@ -65,7 +65,7 @@ RSpec.describe 'Parser' do
       it 'dictionary.word is not empty' do
         expect(dictionary.words).not_to be_empty
       end
-      
+
       it 'dictionary.word include (Silver => 17) ' do
         expect(dictionary.words).to include('Silver' => 17)
       end
@@ -89,4 +89,50 @@ RSpec.describe 'Parser' do
       end
     end
   end
+
+  describe '.infer' do
+    context 'Infer a valid Line' do
+      let(:dictionary) { Dictionary.new }
+
+      before do
+        roman_tokens = 'glob is I'.split(' ')
+        roman_is_position = roman_tokens.find_index('is')
+        subject.parse_roman_number(roman_tokens, roman_is_position)
+      end
+
+      it 'Returns 3' do
+        infer_tokens = 'how much is glob glob glob ?'.split(' ')
+        infer_is_position = infer_tokens.find_index('is')
+        expect(subject.infer(infer_tokens, infer_is_position)).to eq(3)
+      end
+    end
+
+    context 'Infer a invalid Line' do
+      let(:dictionary) { Dictionary.new }
+
+      before do
+        roman_tokens = 'glob is I'.split(' ')
+        roman_is_position = roman_tokens.find_index('is')
+        subject.parse_roman_number(roman_tokens, roman_is_position)
+      end
+
+      it 'Returns 0' do
+        infer_tokens = 'glob glob glob'.split(' ')
+        infer_is_position = infer_tokens.find_index('is')
+        expect(subject.infer(infer_tokens, infer_is_position)).to eq(0)
+      end
+    end
+
+    context 'Infer a valid Line with unknow numbers' do
+      let(:dictionary) { Dictionary.new }
+
+      it 'Returns nil' do
+        infer_tokens = 'how much is glob glob glob ?'.split(' ')
+        infer_is_position = infer_tokens.find_index('is')
+        expect(subject.infer(infer_tokens, infer_is_position)).to eq(nil)
+      end
+    end
+  end
+
+  
 end

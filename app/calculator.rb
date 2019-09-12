@@ -10,10 +10,8 @@ class Calculator
     @parsed_lines = []
   end
 
-  def calculate
-    @repository.read.each do |file_line|
-      @parsed_lines << @parser.parse(file_line)
-    end
+  def calculate!
+    @parsed_lines = @repository.read.map(&@parser.method(:parse))
   end
 
   def print

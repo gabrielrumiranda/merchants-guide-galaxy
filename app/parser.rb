@@ -27,6 +27,8 @@ class Parser
   end
 
   def parse_roman_number(tokens, is_position)
+    return unless is_position
+
     roman_number = tokens[is_position + 1]
     galaxy_number = tokens[is_position - 1]
 
@@ -52,6 +54,8 @@ class Parser
   end
 
   def parse_galaxy_number(tokens, is_position)
+    return unless is_position
+
     galaxy_number = tokens[0, is_position]
     result = tokens[is_position + 1]
     galaxy_number.each do |number|
@@ -73,18 +77,25 @@ class Parser
   end
 
   def infer(tokens, is_position)
+    return 0 unless is_position
+
     line = Line.new
     tokens.delete('?')
     galaxy_number = tokens[is_position + 1, tokens.size]
     galaxy_number.each do |token|
+
       number_value = @dictionary.words.fetch(token)
+
       if !number_value
         puts 'I have no idea what you are talking about'
+        0
         break
       else
         line.add_buffer(Token.new(token, number_value))
       end
     end
     line.accumulate
+  rescue KeyError => e
+    puts 'Key error'
   end
 end
