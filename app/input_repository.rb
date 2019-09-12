@@ -6,5 +6,8 @@ class InputRepository
 
   def read
     File.read(@path).split(/\n/).compact
+
+  rescue StandardError => error
+    puts 'Is not possible read this file!'
   end
 end

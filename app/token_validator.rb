@@ -8,9 +8,9 @@ class TokenValidator
   end
 
   def self.valid_roman_precedence?(value, buffer)
-    index_value = ROMAN_VALUES.index(value)
     return true if buffer.size <= 0
 
+    index_value = ROMAN_VALUES.index(value)
     last_number_bufer = buffer.last
     index_last_token = ROMAN_VALUES.index(last_number_bufer.value)
     return true if index_last_token > index_value

@@ -95,7 +95,7 @@ class Parser
       end
     end
     line.accumulate
-  rescue KeyError => e
+  rescue KeyError
     puts 'Key error'
   end
 end
