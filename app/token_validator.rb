@@ -1,7 +1,7 @@
 class TokenValidator 
   ROMAN_VALUES = [1, 5, 10, 50, 100, 500, 1000].freeze
 
-  def self.valid_push?(token, buffer)
+  def self.valid_token_push?(token, buffer)
     return true unless roman?(token.value)
 
     valid_roman_precedence?(token.value, buffer)
