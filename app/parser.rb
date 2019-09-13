@@ -84,13 +84,7 @@ class Parser
     galaxy_number = tokens[is_position + 1, tokens.size]
     galaxy_number.each do |token|
       number_value = @dictionary.words.fetch(token)
-
-      if !number_value
-        puts 'I have no idea what you are talking about'
-        break
-      else
-        line.add_buffer(Token.new(token, number_value))
-      end
+      line.add_buffer(Token.new(token, number_value))
     end
     line.accumulate
   rescue KeyError

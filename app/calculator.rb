@@ -19,7 +19,7 @@ class Calculator
   end
 
   def print
-    @file_lines.read.zip(@parsed_lines).each do |file_line, parsed_line|
+    @file_lines.zip(@parsed_lines).each do |file_line, parsed_line|
       puts file_line
       puts parsed_line
     end
