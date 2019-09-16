@@ -35,7 +35,7 @@ RSpec.describe 'TokenValidator' do
       end
     end
 
-    context 'when have a roman number in buffer and you want add same number' do
+    context 'when there is a roman number in the buffer' do
       subject(:valid) { TokenValidator.valid_roman_precedence?(1, [roman_i]) }
 
       it 'Returns true' do
