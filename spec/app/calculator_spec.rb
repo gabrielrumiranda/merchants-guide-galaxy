@@ -16,7 +16,7 @@ RSpec.describe 'Calculator' do
 
     context 'when the path is valid' do
       let(:path) { 'spec/files_spec/test2.txt' }
-      
+
       it 'Parsed lines is equal ["-", "-"]' do
         expect(calculator).to eq(['-', '-'])
       end
