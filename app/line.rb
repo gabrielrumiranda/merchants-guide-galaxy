@@ -16,20 +16,26 @@ class Line
   end
 
   def add_buffer(token)
-    return unless token.value && TokenValidator.valid_token_push?(token, @tokens)
+    unless token.value && TokenValidator.valid_token_push?(token, @tokens)
+      return nil
+    end
 
     if @tokens.last
-      if !TokenValidator.roman?(token.value)
-        @accumulate *= token.value
-      elsif @tokens.last.value >= token.value
-        @accumulate += token.value
-      else
-        @accumulate = token.value - @accumulate
-      end
+      calculate_accumulate_tokens(token)
     else
       @accumulate += token.value
     end
 
     @tokens.push(token)
+  end
+
+  def calculate_accumulate_tokens(token)
+    if !TokenValidator.roman?(token.value)
+      @accumulate *= token.value
+    elsif @tokens.last.value >= token.value
+      @accumulate += token.value
+    else
+      @accumulate = token.value - @accumulate
+    end
   end
 end

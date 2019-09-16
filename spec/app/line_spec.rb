@@ -104,22 +104,24 @@ RSpec.describe 'Line' do
       end
     end
 
-    context 'Have three equal Roman number in buffer and push a the same number' do
-      let(:token) { roman_x }
+    context 'Have three equal Roman number in buffer' do
+      context 'and push a the same number' do
+        let(:token) { roman_x }
 
-      before do
-        line.add_buffer(roman_x)
-        line.add_buffer(roman_x)
-        line.add_buffer(roman_x)
-        add_buffer
-      end
+        before do
+          line.add_buffer(roman_x)
+          line.add_buffer(roman_x)
+          line.add_buffer(roman_x)
+          add_buffer
+        end
 
-      it 'Returns nil' do
-        expect(add_buffer).to eq(nil)
-      end
+        it 'Returns nil' do
+          expect(add_buffer).to eq(nil)
+        end
 
-      it 'Line.accumulate is equal 30' do
-        expect(line.accumulate).to eq(30)
+        it 'Line.accumulate is equal 30' do
+          expect(line.accumulate).to eq(30)
+        end
       end
     end
 

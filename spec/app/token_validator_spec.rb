@@ -47,41 +47,43 @@ RSpec.describe 'TokenValidator' do
       it 'Returns true' do
         expect(valid).to eq(true)
       end
-    end
 
-    context 'when have a roman number in buffer and you want add a lesser number' do
-      let(:value) { 1 }
-      let(:buffer) { [roman_v] }
+      context 'and you want add a lesser number' do
+        let(:value) { 1 }
+        let(:buffer) { [roman_v] }
 
-      it 'Returns true' do
-        expect(valid).to eq(true)
+        it 'Returns true' do
+          expect(valid).to eq(true)
+        end
+      end
+
+      context 'and you want add a bigger valid number' do
+        let(:value) { 5 }
+        let(:buffer) { [roman_i] }
+
+        it 'Returns true' do
+          expect(valid).to eq(true)
+        end
+      end
+
+      context 'and you want add a bigger invalid number' do
+        let(:value) { 10 }
+        let(:buffer) { [roman_i] }
+
+        it 'Returns false' do
+          expect(valid).to eq(false)
+        end
       end
     end
 
-    context 'when have a roman number in buffer and you want add a bigger valid number' do
-      let(:value) { 5 }
-      let(:buffer) { [roman_i] }
+    context 'when have the same roman number 3 times in buffer' do
+      context 'and you want add other time' do
+        let(:value) { 1 }
+        let(:buffer) { [roman_i, roman_i, roman_i] }
 
-      it 'Returns true' do
-        expect(valid).to eq(true)
-      end
-    end
-
-    context 'when have a roman number in buffer and you want add a bigger invalid number' do
-      let(:value) { 10 }
-      let(:buffer) { [roman_i] }
-
-      it 'Returns false' do
-        expect(valid).to eq(false)
-      end
-    end
-
-    context 'when have the same roman number 3 times in buffer and you want add other time' do
-      let(:value) { 1 }
-      let(:buffer) { [roman_i, roman_i, roman_i] }
-
-      it 'Returns false' do
-        expect(valid).to eq(false)
+        it 'Returns false' do
+          expect(valid).to eq(false)
+        end
       end
     end
   end
@@ -107,21 +109,23 @@ RSpec.describe 'TokenValidator' do
       end
     end
 
-    context 'when number what do you want push is roman and not invalidate the precedence' do
-      let(:value) { roman_v }
-      let(:buffer) { [roman_i] }
+    context 'when number what do you want push is roman' do
+      context 'and not invalidate the precedence' do
+        let(:value) { roman_v }
+        let(:buffer) { [roman_i] }
 
-      it 'Returns true' do
-        expect(valid).to eq(true)
+        it 'Returns true' do
+          expect(valid).to eq(true)
+        end
       end
-    end
 
-    context 'when number what do you want push is roman and invalidate the precedence' do
-      let(:value) { roman_x }
-      let(:buffer) { [roman_i] }
+      context 'and invalidate the precedence' do
+        let(:value) { roman_x }
+        let(:buffer) { [roman_i] }
 
-      it 'Returns false' do
-        expect(valid).to eq(false)
+        it 'Returns false' do
+          expect(valid).to eq(false)
+        end
       end
     end
   end

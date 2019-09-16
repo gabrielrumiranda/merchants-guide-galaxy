@@ -3,15 +3,16 @@
 require_relative '../spec_helper'
 
 RSpec.describe 'Parser' do
-  
   let(:tokens) { 'glob is I'.split(' ') }
   let(:tokens_is_position) { tokens.find_index('is') }
   let(:dictionary) { Dictionary.new }
   describe '.parse_roman_number' do
-    subject(:parser) { Parser.new(dictionary: dictionary).parse_roman_number(tokens, tokens_is_position) }
+    subject(:parser) do
+      Parser.new(dictionary: dictionary)
+            .parse_roman_number(tokens, tokens_is_position)
+    end
 
     context 'Parse a invalid Line' do
-
       before do
         dictionary.words.clear
         subject
@@ -36,7 +37,10 @@ RSpec.describe 'Parser' do
   end
 
   describe '.parse_galaxy_number' do
-    subject(:parser) { Parser.new(dictionary: dictionary).parse_galaxy_number(tokens, tokens_is_position) }
+    subject(:parser) do
+      Parser.new(dictionary: dictionary)
+            .parse_galaxy_number(tokens, tokens_is_position)
+    end
     context 'Parse a valid Line' do
       let(:tokens) { 'glob glob Silver is 34 Credits'.split(' ') }
 
@@ -64,7 +68,10 @@ RSpec.describe 'Parser' do
   end
 
   describe '.infer' do
-    subject(:parser) { Parser.new(dictionary: dictionary).infer(tokens, tokens_is_position) }
+    subject(:parser) do
+      Parser.new(dictionary: dictionary)
+            .infer(tokens, tokens_is_position)
+    end
 
     context 'Infer a valid Line' do
       let(:tokens) { 'how much is glob glob glob ?'.split(' ') }
@@ -93,14 +100,17 @@ RSpec.describe 'Parser' do
     context 'Infer a valid Line with unknow numbers' do
       let(:tokens) { 'how much is glob glob glob ?'.split(' ') }
 
-      it 'Returns nil' do
-        expect(parser).to eq(nil)
+      it 'Returns 0' do
+        expect(parser).to eq(0)
       end
     end
   end
 
   describe '.calculate_preliminar_number' do
-    subject(:parser) { Parser.new(dictionary: dictionary).calculate_preliminar_number(tokens) }
+    subject(:parser) do
+      Parser.new(dictionary: dictionary)
+            .calculate_preliminar_number(tokens)
+    end
 
     context 'when the tokens is empty' do
       let(:tokens) { [] }
@@ -116,7 +126,6 @@ RSpec.describe 'Parser' do
       before do
         dictionary.words['glob'] = 1
       end
-
 
       it 'Returns 2' do
         expect(parser).to eq(2)
@@ -160,7 +169,7 @@ RSpec.describe 'Parser' do
     end
 
     context 'when the file_line is a galaxy number defintion' do
-      context 'and have information to infer then' do 
+      context 'and have information to infer then' do
         let(:tokens) { 'glob glob Silver is 34 Credits' }
 
         before do
@@ -179,7 +188,6 @@ RSpec.describe 'Parser' do
 
       context 'and not have information to infer then' do
         let(:tokens) { 'glob glob Silver is 34 Credits' }
-
 
         it 'Returns "-" ' do
           expect(parser).to eq('-')
@@ -202,7 +210,7 @@ RSpec.describe 'Parser' do
         it 'Returns 3 ' do
           expect(parser).to eq(3)
         end
-    end
+      end
 
       context 'and not have information to infer then' do
         let(:tokens) { 'how much is glob glob glob ?' }
@@ -211,8 +219,8 @@ RSpec.describe 'Parser' do
           subject
         end
 
-        it 'Returns nil ' do
-          expect(parser).to eq(nil)
+        it 'Returns 0 ' do
+          expect(parser).to eq(0)
         end
       end
     end

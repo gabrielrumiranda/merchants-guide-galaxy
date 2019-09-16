@@ -5,6 +5,16 @@ require_relative './token'
 require_relative './dictionary'
 
 class Parser
+  ROMAN_MAP = {
+    'I' => 1,
+    'V' => 5,
+    'X' => 10,
+    'L' => 50,
+    'C' => 100,
+    'D' => 500,
+    'M' => 1000
+  }.freeze
+
   def initialize(dictionary: Dictionary.new)
     @dictionary = dictionary
   end
@@ -12,9 +22,9 @@ class Parser
   def parse(file_line)
     tokens = file_line.split(' ')
     is_position = tokens.find_index('is')
-    if !is_position
-      'I have no idea what you are talking about'
-    elsif tokens.last == '?'
+    return 'I have no idea what you are talking about' unless !is_position
+  
+    if tokens.last == '?'
       infer(tokens, is_position)
     elsif tokens.last == 'Credits'
       parse_galaxy_number(tokens, is_position)
@@ -25,31 +35,27 @@ class Parser
     end
   end
 
+  def can_parse?(file_line)
+    tokens = file_line.split(' ')
+    is_position = tokens.find_index('is')
+    if !is_position
+      'I have no idea what you are talking about'
+    else
+      [tokens, is_position]
+    end
+  end
+
   def parse_roman_number(tokens, is_position)
     return unless is_position
 
     roman_number = tokens[is_position + 1]
     galaxy_number = tokens[is_position - 1]
+    roman_value = ROMAN_MAP[roman_number]
+    puts 'teste'
+    puts roman_value
+    @dictionary.add_word(galaxy_number, roman_value) if roman_value
 
-    case roman_number
-    when 'I'
-      @dictionary.add_word(galaxy_number, 1)
-    when 'V'
-      @dictionary.add_word(galaxy_number, 5)
-    when 'X'
-      @dictionary.add_word(galaxy_number, 10)
-    when 'L'
-      @dictionary.add_word(galaxy_number, 50)
-    when 'C'
-      @dictionary.add_word(galaxy_number, 100)
-    when 'D'
-      @dictionary.add_word(galaxy_number, 500)
-    when 'M'
-      @dictionary.add_word(galaxy_number, 1000)
-
-    else
-      puts "the romans don't know this number"
-    end
+    puts "the romans don't know this number"
   end
 
   def parse_galaxy_number(tokens, is_position)
@@ -58,12 +64,12 @@ class Parser
     galaxy_number = tokens[0, is_position]
     result = tokens[is_position + 1]
     galaxy_number.each do |number|
-      number_value = @dictionary.words[number]
-      next if number_value
+      next if @dictionary.words[number]
 
       preliminar_number = galaxy_number.reject { |n| n == number }
       preliminar_result = calculate_preliminar_number(preliminar_number)
-      next if preliminar_result == 0
+      next if preliminar_result.zero?
+
       @dictionary.add_word(number, Integer(result) / preliminar_result.to_f)
     end
   end
@@ -84,7 +90,7 @@ class Parser
     galaxy_number = tokens[is_position + 1, tokens.size]
     galaxy_number.each do |token|
       number_value = @dictionary.words[token]
-      return unless number_value
+      break unless number_value
 
       line.add_buffer(Token.new(token, number_value))
     end
