@@ -2,8 +2,8 @@
 
 require_relative './parser'
 require_relative './input_repository.rb'
+
 class Calculator
-  attr_reader :parser, :parsed_lines
 
   def initialize(parser: Parser.new, repository: InputRepository.new)
     @parser = parser

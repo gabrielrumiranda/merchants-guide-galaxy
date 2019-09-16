@@ -19,7 +19,7 @@ RSpec.describe 'Line' do
       it 'Line.tokens is equal a array with the pushed tokens' do
         expect(subject.tokens).to eq([roman_x])
       end
-    endg
+    end
 
     context 'Tokens is not empty and push some token' do
       subject(:line) { Line.new }

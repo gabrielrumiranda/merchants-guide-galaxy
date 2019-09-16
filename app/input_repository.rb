@@ -2,12 +2,12 @@
 
 class InputRepository
   def initialize(path = '')
-    @path = File.file?(path) ? path : ''
+    @path = path
   end
 
   def read
+    return [] unless File.file?(@path)
+
     File.read(@path).split(/\n/).compact
-  rescue StandardError
-    puts "It's not possible"
   end
 end
