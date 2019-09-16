@@ -9,7 +9,7 @@ RSpec.describe 'Line' do
   let(:galaxy_number) { Token.new('glub', 2) }
 
   describe '.push' do
-    context 'Tokens is empty and push some token' do
+    context 'when token is empty' do
       subject(:line) { Line.new }
 
       before do

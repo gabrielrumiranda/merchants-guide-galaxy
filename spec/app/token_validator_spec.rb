@@ -35,7 +35,7 @@ RSpec.describe 'TokenValidator' do
       end
     end
 
-    context 'when the have a roman number in buffer and you want add same number' do
+    context 'when have a roman number in buffer and you want add same number' do
       subject(:valid) { TokenValidator.valid_roman_precedence?(1, [roman_i]) }
 
       it 'Returns true' do
@@ -43,7 +43,7 @@ RSpec.describe 'TokenValidator' do
       end
     end
 
-    context 'when the have a roman number in buffer and you want add a lesser number' do
+    context 'when have a roman number in buffer and you want add a lesser number' do
       subject(:valid) { TokenValidator.valid_roman_precedence?(1, [roman_v]) }
 
       it 'Returns true' do
@@ -51,7 +51,7 @@ RSpec.describe 'TokenValidator' do
       end
     end
 
-    context 'when the have a roman number in buffer and you want add a bigger valid number' do
+    context 'when have a roman number in buffer and you want add a bigger valid number' do
       subject(:valid) { TokenValidator.valid_roman_precedence?(5, [roman_i]) }
 
       it 'Returns true' do
@@ -59,7 +59,7 @@ RSpec.describe 'TokenValidator' do
       end
     end
 
-    context 'when the have a roman number in buffer and you want add a bigger invalid number' do
+    context 'when have a roman number in buffer and you want add a bigger invalid number' do
       subject(:valid) { TokenValidator.valid_roman_precedence?(10, [roman_i]) }
 
       it 'Returns false' do
@@ -67,7 +67,7 @@ RSpec.describe 'TokenValidator' do
       end
     end
 
-    context 'when the have the same roman number 3 times in buffer and you want add other time' do
+    context 'when have the same roman number 3 times in buffer and you want add other time' do
       subject(:valid) { TokenValidator.valid_roman_precedence?(1, [roman_i, roman_i, roman_i]) }
 
       it 'Returns false' do

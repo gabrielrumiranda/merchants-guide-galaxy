@@ -4,7 +4,6 @@ require_relative './parser'
 require_relative './input_repository.rb'
 
 class Calculator
-
   def initialize(parser: Parser.new, repository: InputRepository.new)
     @parser = parser
     @repository = repository
