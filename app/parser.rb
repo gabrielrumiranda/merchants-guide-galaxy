@@ -64,6 +64,7 @@ class Parser
       preliminar_number = galaxy_number.reject { |n| n == number }
       preliminar_result = calculate_preliminar_number(preliminar_number)
       next if preliminar_result == 0
+
       @dictionary.add_word(number, Integer(result) / preliminar_result.to_f)
     end
   end
@@ -83,11 +84,11 @@ class Parser
     tokens.delete('?')
     galaxy_number = tokens[is_position + 1, tokens.size]
     galaxy_number.each do |token|
-      number_value = @dictionary.words.fetch(token)
+      number_value = @dictionary.words[token]
+      return unless number_value
+
       line.add_buffer(Token.new(token, number_value))
     end
     line.accumulate
-  rescue KeyError
-    puts 'Key error'
   end
 end

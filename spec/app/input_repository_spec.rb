@@ -10,23 +10,19 @@ RSpec.describe 'InputRepository' do
       it 'read lines is equal [glob is I, prok is V])' do
         expect(read_lines).to eq ['glob is I', 'prok is V']
       end
-
     end
 
     context 'when the given file is empty' do
       subject(:read_lines) { InputRepository.new('spec/files_spec/test3.txt').read }
 
-      it 'return need be empty' do
-        expect(read_lines).to be_empty
-      end
+      it { is_expected.to be_empty }
+
     end
 
     context 'when the given file not exist' do
       subject(:read_lines) { InputRepository.new('spec/files_spec/test3.txt').read }
 
-      it 'return need be empty' do
-        expect(read_lines).to be_empty
-      end
+      it { is_expected.to be_empty }
     end
   end
 end

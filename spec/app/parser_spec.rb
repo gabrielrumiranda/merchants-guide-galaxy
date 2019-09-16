@@ -4,15 +4,15 @@ require_relative '../spec_helper'
 
 RSpec.describe 'Parser' do
   subject(:parser) { Parser.new(dictionary: dictionary) }
+  let(:glob) { 'glob is I'.split(' ') }
 
   describe '.parse_roman_number' do
     context 'Parse a valid Line' do
       let(:dictionary) { Dictionary.new }
 
       before do
-        tokens = 'glob is I'.split(' ')
-        is_position = tokens.find_index('is')
-        parser.parse_roman_number(tokens, is_position)
+        is_position = glob.find_index('is')
+        parser.parse_roman_number(glob, is_position)
       end
 
       it 'dictionary.words is equal (glob => 1) ' do
@@ -40,9 +40,8 @@ RSpec.describe 'Parser' do
       let(:dictionary) { Dictionary.new }
 
       before do
-        roman_tokens = 'glob is I'.split(' ')
-        roman_is_position = roman_tokens.find_index('is')
-        parser.parse_roman_number(roman_tokens, roman_is_position)
+        roman_is_position = glob.find_index('is')
+        parser.parse_roman_number(glob, roman_is_position)
         galaxy_tokens = 'glob glob Silver is 34 Credits'.split(' ')
         galaxy_is_position = galaxy_tokens.find_index('is')
         parser.parse_galaxy_number(galaxy_tokens, galaxy_is_position)
@@ -77,9 +76,8 @@ RSpec.describe 'Parser' do
       let(:dictionary) { Dictionary.new }
 
       before do
-        roman_tokens = 'glob is I'.split(' ')
-        roman_is_position = roman_tokens.find_index('is')
-        parser.parse_roman_number(roman_tokens, roman_is_position)
+        roman_is_position = glob.find_index('is')
+        parser.parse_roman_number(glob, roman_is_position)
       end
 
       it 'Returns 3' do
@@ -93,9 +91,8 @@ RSpec.describe 'Parser' do
       let(:dictionary) { Dictionary.new }
 
       before do
-        roman_tokens = 'glob is I'.split(' ')
-        roman_is_position = roman_tokens.find_index('is')
-        parser.parse_roman_number(roman_tokens, roman_is_position)
+        roman_is_position = glob.find_index('is')
+        parser.parse_roman_number(glob, roman_is_position)
       end
 
       it 'Returns 0' do
@@ -129,13 +126,12 @@ RSpec.describe 'Parser' do
       let(:dictionary) { Dictionary.new }
 
       before do
-        roman_tokens = 'glob is I'.split(' ')
-        roman_is_position = roman_tokens.find_index('is')
-        parser.parse_roman_number(roman_tokens, roman_is_position)
+        roman_is_position = glob.find_index('is')
+        parser.parse_roman_number(glob, roman_is_position)
       end
 
       it 'Returns 2' do
-        expect(parser.calculate_preliminar_number(['glob', 'glob'])).to eq(2)
+        expect(parser.calculate_preliminar_number(%w[glob glob])).to eq(2)
       end
     end
   end
