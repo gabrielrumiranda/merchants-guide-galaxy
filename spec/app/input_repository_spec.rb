@@ -16,7 +16,6 @@ RSpec.describe 'InputRepository' do
       subject(:read_lines) { InputRepository.new('spec/files_spec/test3.txt').read }
 
       it { is_expected.to be_empty }
-
     end
 
     context 'when the given file not exist' do
