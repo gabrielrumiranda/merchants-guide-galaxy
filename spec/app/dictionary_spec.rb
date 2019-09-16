@@ -1,26 +1,35 @@
 # frozen_string_literal: true
-
 require_relative '../spec_helper'
-RSpec.describe 'Dictionary' do
-  describe '.add_word' do
-    context 'when words is empty' do
-      subject(:dictionary) { Dictionary.new.add_word('Plact', 52) }
 
+RSpec.describe 'Dictionary' do
+  let(:word_name) { 'Plac' }
+  let(:word_value) { 52 }
+  let(:dictionary) { Dictionary.new }
+
+  describe '.add_word' do
+    subject(:add_word) { dictionary.add_word(word_name, word_value) }
+
+    context 'when words is empty' do
       it 'Dictionary.words is equal 52}' do
-        expect(dictionary).to eq(52)
+        expect(add_word).to eq(52)
       end
     end
 
     context 'when words is not empty' do
-      subject(:dictionary) { Dictionary.new }
+      let(:word_name) { 'TumTum' }
+      let(:word_value) { 30 }
 
       before do
-        dictionary.add_word('Plact', 52)
-        dictionary.add_word('Zum', 30)
+        dictionary.words['Plac'] = 52
+        subject
       end
 
       it 'adds the new word to dictionary' do
-        expect(dictionary.words).to eq('Plact' => 52, 'Zum' => 30)
+        expect(add_word).to eq(30)
+      end
+
+      it 'dictionary.words have 2 words' do
+        expect(dictionary.words).to eq('Plac' => 52, 'TumTum' => 30)
       end
     end
   end
