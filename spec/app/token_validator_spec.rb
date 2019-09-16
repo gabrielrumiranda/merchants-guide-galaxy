@@ -9,8 +9,10 @@ RSpec.describe 'TokenValidator' do
   let(:galaxy_number) { Token.new('glub', 4) }
 
   describe '#roman?' do
+    subject(:roman) { TokenValidator.roman?(value) }
+
     context 'when number is roman' do
-      subject(:roman) { TokenValidator.roman?(10) }
+      let(:value) { 10 }
 
       it 'Returns true' do
         expect(roman).to eq(true)
@@ -18,7 +20,7 @@ RSpec.describe 'TokenValidator' do
     end
 
     context 'when number is not roman' do
-      subject(:roman) { TokenValidator.roman?(3) }
+      let(:value) { 3 }
 
       it 'Returns true' do
         expect(roman).to eq(false)
@@ -27,8 +29,11 @@ RSpec.describe 'TokenValidator' do
   end
 
   describe '#valid_roman_precedence?' do
+    subject(:valid) { TokenValidator.valid_roman_precedence?(value, buffer) }
+
     context 'when the buffer is empty' do
-      subject(:valid) { TokenValidator.valid_roman_precedence?(10, []) }
+      let(:value) { 1 }
+      let(:buffer) { [] }
 
       it 'Returns true' do
         expect(valid).to eq(true)
@@ -36,7 +41,8 @@ RSpec.describe 'TokenValidator' do
     end
 
     context 'when there is a roman number in the buffer' do
-      subject(:valid) { TokenValidator.valid_roman_precedence?(1, [roman_i]) }
+      let(:value) { 5 }
+      let(:buffer) { [roman_i] }
 
       it 'Returns true' do
         expect(valid).to eq(true)
@@ -44,7 +50,8 @@ RSpec.describe 'TokenValidator' do
     end
 
     context 'when have a roman number in buffer and you want add a lesser number' do
-      subject(:valid) { TokenValidator.valid_roman_precedence?(1, [roman_v]) }
+      let(:value) { 1 }
+      let(:buffer) { [roman_v] }
 
       it 'Returns true' do
         expect(valid).to eq(true)
@@ -52,7 +59,8 @@ RSpec.describe 'TokenValidator' do
     end
 
     context 'when have a roman number in buffer and you want add a bigger valid number' do
-      subject(:valid) { TokenValidator.valid_roman_precedence?(5, [roman_i]) }
+      let(:value) { 5 }
+      let(:buffer) { [roman_i] }
 
       it 'Returns true' do
         expect(valid).to eq(true)
@@ -60,7 +68,8 @@ RSpec.describe 'TokenValidator' do
     end
 
     context 'when have a roman number in buffer and you want add a bigger invalid number' do
-      subject(:valid) { TokenValidator.valid_roman_precedence?(10, [roman_i]) }
+      let(:value) { 10 }
+      let(:buffer) { [roman_i] }
 
       it 'Returns false' do
         expect(valid).to eq(false)
@@ -68,7 +77,8 @@ RSpec.describe 'TokenValidator' do
     end
 
     context 'when have the same roman number 3 times in buffer and you want add other time' do
-      subject(:valid) { TokenValidator.valid_roman_precedence?(1, [roman_i, roman_i, roman_i]) }
+      let(:value) { 1 }
+      let(:buffer) { [roman_i, roman_i, roman_i] }
 
       it 'Returns false' do
         expect(valid).to eq(false)
@@ -77,8 +87,11 @@ RSpec.describe 'TokenValidator' do
   end
 
   describe '#valid_token_push?' do
+    subject(:valid) { TokenValidator.valid_token_push?(value, buffer) }
+
     context 'when number what do you want push is not roman' do
-      subject(:valid) { TokenValidator.valid_token_push?(galaxy_number, [roman_i]) }
+      let(:value) { galaxy_number }
+      let(:buffer) { [roman_i] }
 
       it 'Returns true' do
         expect(valid).to eq(true)
@@ -86,7 +99,8 @@ RSpec.describe 'TokenValidator' do
     end
 
     context 'when the buffer is empty' do
-      subject(:valid) { TokenValidator.valid_token_push?(roman_v, []) }
+      let(:value) { roman_v }
+      let(:buffer) { [] }
 
       it 'Returns true' do
         expect(valid).to eq(true)
@@ -94,7 +108,8 @@ RSpec.describe 'TokenValidator' do
     end
 
     context 'when number what do you want push is roman and not invalidate the precedence' do
-      subject(:valid) { TokenValidator.valid_token_push?(roman_v, [roman_i]) }
+      let(:value) { roman_v }
+      let(:buffer) { [roman_i] }
 
       it 'Returns true' do
         expect(valid).to eq(true)
@@ -102,7 +117,8 @@ RSpec.describe 'TokenValidator' do
     end
 
     context 'when number what do you want push is roman and invalidate the precedence' do
-      subject(:valid) { TokenValidator.valid_token_push?(roman_x, [roman_i]) }
+      let(:value) { roman_x }
+      let(:buffer) { [roman_i] }
 
       it 'Returns false' do
         expect(valid).to eq(false)
