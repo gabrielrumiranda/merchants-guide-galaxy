@@ -12,17 +12,15 @@ RSpec.describe 'Dictionary' do
     end
 
     context 'when words is not empty' do
-      context 'and add some word' do
-        subject(:dictionary) { Dictionary.new }
+      subject(:dictionary) { Dictionary.new }
 
-        before do
-          dictionary.add_word('Plact', 52)
-          dictionary.add_word('Zum', 30)
-        end
+      before do
+        dictionary.add_word('Plact', 52)
+        dictionary.add_word('Zum', 30)
+      end
 
-        it 'adds the new word to dictionary'
-          expect(dictionary.words).to eq('Plact' => 52, 'Zum' => 30)
-        end
+      it 'adds the new word to dictionary' do
+        expect(dictionary.words).to eq('Plact' => 52, 'Zum' => 30)
       end
     end
   end
