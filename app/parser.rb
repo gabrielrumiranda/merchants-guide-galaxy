@@ -19,7 +19,7 @@ class Parser
     @dictionary = dictionary
   end
 
-  def parse(file_line)
+  def parse!(file_line)
     tokens = file_line.split(' ')
     is_position = tokens.find_index('is')
     return 'I have no idea what you are talking about' unless is_position
@@ -27,10 +27,10 @@ class Parser
     if tokens.last == '?'
       infer(tokens, is_position)
     elsif tokens.last == 'Credits'
-      parse_galaxy_number(tokens, is_position)
+      parse_galaxy_number!(tokens, is_position)
       '-'
     else
-      parse_roman_number(tokens, is_position)
+      parse_roman_number!(tokens, is_position)
       '-'
     end
   end
@@ -45,7 +45,7 @@ class Parser
     end
   end
 
-  def parse_roman_number(tokens, is_position)
+  def parse_roman_number!(tokens, is_position)
     return unless is_position
 
     roman_number = tokens[is_position + 1]
@@ -53,12 +53,12 @@ class Parser
     roman_value = ROMAN_MAP[roman_number]
     puts 'teste'
     puts roman_value
-    @dictionary.add_word(galaxy_number, roman_value) if roman_value
+    @dictionary.add_word!(galaxy_number, roman_value) if roman_value
 
     puts "the romans don't know this number"
   end
 
-  def parse_galaxy_number(tokens, is_position)
+  def parse_galaxy_number!(tokens, is_position)
     return unless is_position
 
     galaxy_number = tokens[0, is_position]
@@ -70,14 +70,14 @@ class Parser
       preliminar_result = calculate_preliminar_number(preliminar_number)
       next if preliminar_result.zero?
 
-      @dictionary.add_word(number, Integer(result) / preliminar_result.to_f)
+      @dictionary.add_word!(number, Integer(result) / preliminar_result.to_f)
     end
   end
 
   def calculate_preliminar_number(tokens)
     line = Line.new
     tokens.each do |n|
-      line.add_buffer(Token.new(n, @dictionary.words[n]))
+      line.add_buffer!(Token.new(n, @dictionary.words[n]))
     end
     line.accumulate
   end
@@ -92,7 +92,7 @@ class Parser
       number_value = @dictionary.words[token]
       break unless number_value
 
-      line.add_buffer(Token.new(token, number_value))
+      line.add_buffer!(Token.new(token, number_value))
     end
     line.accumulate
   end

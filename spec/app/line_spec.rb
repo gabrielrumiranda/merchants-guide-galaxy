@@ -9,8 +9,8 @@ RSpec.describe 'Line' do
   let(:galaxy_number) { Token.new('glub', 2) }
   let(:line) { Line.new }
 
-  describe '#push' do
-    subject(:push) { line.push(token) }
+  describe '#push!' do
+    subject(:push) { line.push!(token) }
 
     context 'when tokens is empty' do
       let(:token) { roman_x }
@@ -24,7 +24,7 @@ RSpec.describe 'Line' do
       let(:token) { roman_x }
 
       before do
-        line.push(roman_i)
+        line.push!(roman_i)
         push
       end
 
@@ -34,8 +34,8 @@ RSpec.describe 'Line' do
     end
   end
 
-  describe '#add_buffer' do
-    subject(:add_buffer) { line.add_buffer(token) }
+  describe '#add_buffer!' do
+    subject(:add_buffer) { line.add_buffer!(token) }
 
     context 'when tokens is empty' do
       let(:token) { roman_x }
@@ -58,7 +58,7 @@ RSpec.describe 'Line' do
         let(:token) { roman_v }
 
         before do
-          line.add_buffer(roman_i)
+          line.add_buffer!(roman_i)
           add_buffer
         end
 
@@ -75,7 +75,7 @@ RSpec.describe 'Line' do
         let(:token) { roman_v }
 
         before do
-          line.add_buffer(roman_x)
+          line.add_buffer!(roman_x)
           add_buffer
         end
 
@@ -92,7 +92,7 @@ RSpec.describe 'Line' do
         let(:token) { galaxy_number }
 
         before do
-          line.add_buffer(roman_x)
+          line.add_buffer!(roman_x)
           add_buffer
         end
 
@@ -111,9 +111,9 @@ RSpec.describe 'Line' do
         let(:token) { roman_x }
 
         before do
-          line.add_buffer(roman_x)
-          line.add_buffer(roman_x)
-          line.add_buffer(roman_x)
+          line.add_buffer!(roman_x)
+          line.add_buffer!(roman_x)
+          line.add_buffer!(roman_x)
           add_buffer
         end
 
@@ -131,7 +131,7 @@ RSpec.describe 'Line' do
       let(:token) { roman_x }
 
       before do
-        line.add_buffer(roman_i)
+        line.add_buffer!(roman_i)
         add_buffer
       end
 

@@ -11,11 +11,11 @@ class Line
     @accumulate = 0
   end
 
-  def push(token)
+  def push!(token)
     @tokens.push(token)
   end
 
-  def add_buffer(token)
+  def add_buffer!(token)
     unless token.value && TokenValidator.valid_token_push?(token, @tokens)
       return nil
     end

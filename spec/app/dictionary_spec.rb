@@ -7,8 +7,8 @@ RSpec.describe 'Dictionary' do
   let(:word_value) { 52 }
   let(:dictionary) { Dictionary.new }
 
-  describe '#add_word' do
-    subject(:add_word) { dictionary.add_word(word_name, word_value) }
+  describe '#add_word!' do
+    subject(:add_word) { dictionary.add_word!(word_name, word_value) }
 
     context 'when words is empty' do
       it 'add the new word' do

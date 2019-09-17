@@ -12,7 +12,7 @@ class Calculator
   end
 
   def calculate!
-    @parsed_lines = @file_lines.map(&@parser.method(:parse)) if @file_lines
+    @parsed_lines = @file_lines.map(&@parser.method(:parse!)) if @file_lines
   end
 
   def print

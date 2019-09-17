@@ -6,10 +6,10 @@ RSpec.describe 'Parser' do
   let(:tokens) { 'glob is I'.split(' ') }
   let(:tokens_is_position) { tokens.find_index('is') }
   let(:dictionary) { Dictionary.new }
-  describe '#parse_roman_number' do
+  describe '#parse_roman_number!' do
     subject(:parser) do
       Parser.new(dictionary: dictionary)
-            .parse_roman_number(tokens, tokens_is_position)
+            .parse_roman_number!(tokens, tokens_is_position)
     end
 
     context 'when line is valid' do
@@ -36,10 +36,10 @@ RSpec.describe 'Parser' do
     end
   end
 
-  describe '#parse_galaxy_number' do
+  describe '#parse_galaxy_number!' do
     subject(:parser) do
       Parser.new(dictionary: dictionary)
-            .parse_galaxy_number(tokens, tokens_is_position)
+            .parse_galaxy_number!(tokens, tokens_is_position)
     end
     context 'when line is valid' do
       let(:tokens) { 'glob glob Silver is 34 Credits'.split(' ') }
@@ -133,8 +133,8 @@ RSpec.describe 'Parser' do
     end
   end
 
-  describe '#parser' do
-    subject(:parser) { Parser.new(dictionary: dictionary).parse(tokens) }
+  describe '#parse!' do
+    subject(:parser) { Parser.new(dictionary: dictionary).parse!(tokens) }
 
     context 'when the file_line is empty' do
       let(:tokens) { '' }
