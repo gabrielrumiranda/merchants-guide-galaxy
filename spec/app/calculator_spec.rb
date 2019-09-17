@@ -6,7 +6,9 @@ RSpec.describe Calculator do
   let(:repository) { InputRepository.new(path) }
 
   describe '#calculate!' do
-    subject(:calculator) { described_class.new(repository: repository).calculate! }
+    subject(:calculator) do
+      described_class.new(repository: repository).calculate!
+    end
 
     context 'when the path is invalid' do
       let(:path) { 'spec/files_spec/invalid.txt' }

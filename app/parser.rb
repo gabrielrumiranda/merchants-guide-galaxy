@@ -21,25 +21,25 @@ class Parser
 
   def parse!(file_line)
     tokens = file_line.split(' ')
-    is_position = tokens.find_index('is')
-    return 'I have no idea what you are talking about' unless is_position
+    position_of_is = tokens.find_index('is')
+    return 'I have no idea what you are talking about' unless position_of_is
 
     if tokens.last == '?'
-      infer(tokens, is_position)
+      infer(tokens, position_of_is)
     elsif tokens.last == 'Credits'
-      parse_galaxy_number!(tokens, is_position)
+      parse_galaxy_number!(tokens, position_of_is)
       '-'
     else
-      parse_roman_number!(tokens, is_position)
+      parse_roman_number!(tokens, position_of_is)
       '-'
     end
   end
 
-  def parse_roman_number!(tokens, is_position)
-    return unless is_position
+  def parse_roman_number!(tokens, position_of_is)
+    return unless position_of_is
 
-    roman_number = tokens[is_position + 1]
-    galaxy_number = tokens[is_position - 1]
+    roman_number = tokens[position_of_is + 1]
+    galaxy_number = tokens[position_of_is - 1]
     roman_value = ROMAN_MAP[roman_number]
     if roman_value
       @dictionary.add_word!(galaxy_number, roman_value)
@@ -48,11 +48,11 @@ class Parser
     end
   end
 
-  def parse_galaxy_number!(tokens, is_position)
-    return unless is_position
+  def parse_galaxy_number!(tokens, position_of_is)
+    return unless position_of_is
 
-    galaxy_number = tokens[0, is_position]
-    result = tokens[is_position + 1]
+    galaxy_number = tokens[0, position_of_is]
+    result = tokens[position_of_is + 1]
     galaxy_number.each do |number|
       next if @dictionary.words[number]
 
@@ -72,12 +72,12 @@ class Parser
     line.accumulate
   end
 
-  def infer(tokens, is_position)
-    return 0 unless is_position
+  def infer(tokens, position_of_is)
+    return 0 unless position_of_is
 
     line = Line.new
     tokens.delete('?')
-    galaxy_number = tokens[is_position + 1, tokens.size]
+    galaxy_number = tokens[position_of_is + 1, tokens.size]
     galaxy_number.each do |token|
       number_value = @dictionary.words[token]
       break unless number_value

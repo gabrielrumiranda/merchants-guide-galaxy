@@ -9,8 +9,7 @@ RSpec.describe Parser do
   describe '#parse_roman_number!' do
     subject(:parser) do
       described_class.new(dictionary: dictionary)
-            .parse_roman_number!(tokens, tokens_is_position)
-
+                     .parse_roman_number!(tokens, tokens_is_position)
     end
 
     context 'when line is valid' do
@@ -215,10 +214,6 @@ RSpec.describe Parser do
 
       context 'and not have information to infer then' do
         let(:tokens) { 'how much is glob glob glob ?' }
-
-        before do
-          subject
-        end
 
         it 'Returns 0 ' do
           expect(parser).to eq(0)
