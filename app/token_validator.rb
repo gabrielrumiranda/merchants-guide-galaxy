@@ -15,10 +15,10 @@ class TokenValidator
 
       index_value = ROMAN_VALUES.index(value)
       last_number_bufer = buffer.last
-      index_last_token = ROMAN_VALUES.index(last_number_bufer.value)
-      return true if index_last_token > index_value
+      last_index = ROMAN_VALUES.index(last_number_bufer.value)
+      return true if last_index > index_value
 
-      return index_last_token + 1 == index_value if index_last_token < index_value
+      return last_index + 1 == index_value if last_index < index_value
 
       valid_three_number_rule(buffer)
     end
