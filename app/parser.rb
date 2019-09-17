@@ -51,11 +51,11 @@ class Parser
     roman_number = tokens[is_position + 1]
     galaxy_number = tokens[is_position - 1]
     roman_value = ROMAN_MAP[roman_number]
-    puts 'teste'
-    puts roman_value
-    @dictionary.add_word!(galaxy_number, roman_value) if roman_value
-
-    puts "the romans don't know this number"
+    if roman_number
+      @dictionary.add_word!(galaxy_number, roman_value)
+    else
+      puts "the romans don't know this number"
+    end
   end
 
   def parse_galaxy_number!(tokens, is_position)
