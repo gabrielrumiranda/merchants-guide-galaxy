@@ -2,14 +2,14 @@
 
 require_relative '../spec_helper'
 
-RSpec.describe 'TokenValidator' do
+RSpec.describe TokenValidator do
   let(:roman_i) { Token.new('I', 1) }
   let(:roman_v) { Token.new('V', 5) }
   let(:roman_x) { Token.new('X', 10) }
   let(:galaxy_number) { Token.new('glub', 4) }
 
   describe '.roman?' do
-    subject(:roman) { TokenValidator.roman?(value) }
+    subject(:roman) { described_class.roman?(value) }
 
     context 'when number is roman' do
       let(:value) { 10 }
@@ -29,7 +29,7 @@ RSpec.describe 'TokenValidator' do
   end
 
   describe '.valid_roman_precedence?' do
-    subject(:valid) { TokenValidator.valid_roman_precedence?(value, buffer) }
+    subject(:valid) { described_class.valid_roman_precedence?(value, buffer) }
 
     context 'when the buffer is empty' do
       let(:value) { 1 }
@@ -89,7 +89,7 @@ RSpec.describe 'TokenValidator' do
   end
 
   describe '.valid_token_push?' do
-    subject(:valid) { TokenValidator.valid_token_push?(value, buffer) }
+    subject(:valid) { described_class.valid_token_push?(value, buffer) }
 
     context 'when number what do you want push is not roman' do
       let(:value) { galaxy_number }

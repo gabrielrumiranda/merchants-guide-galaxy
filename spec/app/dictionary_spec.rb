@@ -2,10 +2,10 @@
 
 require_relative '../spec_helper'
 
-RSpec.describe 'Dictionary' do
+RSpec.describe Dictionary do
   let(:word_name) { 'Plac' }
   let(:word_value) { 52 }
-  let(:dictionary) { Dictionary.new }
+  let(:dictionary) { described_class.new }
 
   describe '#add_word!' do
     subject(:add_word) { dictionary.add_word!(word_name, word_value) }
@@ -22,6 +22,7 @@ RSpec.describe 'Dictionary' do
 
       before do
         dictionary.words['Plac'] = 52
+        add_word
       end
 
       it 'add the new word' do

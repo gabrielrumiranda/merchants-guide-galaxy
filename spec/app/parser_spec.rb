@@ -2,14 +2,15 @@
 
 require_relative '../spec_helper'
 
-RSpec.describe 'Parser' do
+RSpec.describe Parser do
   let(:tokens) { 'glob is I'.split(' ') }
   let(:tokens_is_position) { tokens.find_index('is') }
   let(:dictionary) { Dictionary.new }
   describe '#parse_roman_number!' do
     subject(:parser) do
-      Parser.new(dictionary: dictionary)
+      described_class.new(dictionary: dictionary)
             .parse_roman_number!(tokens, tokens_is_position)
+
     end
 
     context 'when line is valid' do

@@ -2,9 +2,9 @@
 
 require_relative '../spec_helper'
 
-RSpec.describe 'InputRepository' do
+RSpec.describe InputRepository do
   describe '#read' do
-    subject(:read_lines) { InputRepository.new(path).read }
+    subject(:read_lines) { described_class.new(path).read }
 
     context 'when the given file is not empty' do
       let(:path) { 'spec/files_spec/test2.txt' }

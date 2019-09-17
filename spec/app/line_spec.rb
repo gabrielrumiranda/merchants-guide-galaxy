@@ -2,12 +2,12 @@
 
 require_relative '../spec_helper'
 
-RSpec.describe 'Line' do
+RSpec.describe Line do
   let(:roman_i) { Token.new('I', 1) }
   let(:roman_v) { Token.new('V', 5) }
   let(:roman_x) { Token.new('X', 10) }
   let(:galaxy_number) { Token.new('glub', 2) }
-  let(:line) { Line.new }
+  let(:line) { described_class.new }
 
   describe '#push!' do
     subject(:push) { line.push!(token) }
@@ -25,7 +25,6 @@ RSpec.describe 'Line' do
 
       before do
         line.push!(roman_i)
-        push
       end
 
       it 'returns the pushed tokens' do

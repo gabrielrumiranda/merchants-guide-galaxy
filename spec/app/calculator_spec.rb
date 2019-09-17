@@ -2,11 +2,11 @@
 
 require_relative '../spec_helper'
 
-RSpec.describe 'Calculator' do
+RSpec.describe Calculator do
   let(:repository) { InputRepository.new(path) }
 
   describe '#calculate!' do
-    subject(:calculator) { Calculator.new(repository: repository).calculate! }
+    subject(:calculator) { described_class.new(repository: repository).calculate! }
 
     context 'when the path is invalid' do
       let(:path) { 'spec/files_spec/invalid.txt' }
