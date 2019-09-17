@@ -5,7 +5,7 @@ require_relative '../spec_helper'
 RSpec.describe 'Calculator' do
   let(:repository) { InputRepository.new(path) }
 
-  describe '.calculate!' do
+  describe '#calculate!' do
     subject(:calculator) { Calculator.new(repository: repository).calculate! }
 
     context 'when the path is invalid' do
@@ -17,7 +17,7 @@ RSpec.describe 'Calculator' do
     context 'when the path is valid' do
       let(:path) { 'spec/files_spec/test2.txt' }
 
-      it 'Parsed lines is equal ["-", "-"]' do
+      it 'returns parsed lines' do
         expect(calculator).to eq(['-', '-'])
       end
     end
@@ -25,9 +25,7 @@ RSpec.describe 'Calculator' do
     context 'when the file is empty' do
       let(:path) { 'spec/files_spec/test3.txt' }
 
-      it 'Parsed lines is empty' do
-        expect(calculator).to be_empty
-      end
+      it { is_expected.to be_empty }
     end
   end
 end

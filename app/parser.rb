@@ -22,8 +22,8 @@ class Parser
   def parse(file_line)
     tokens = file_line.split(' ')
     is_position = tokens.find_index('is')
-    return 'I have no idea what you are talking about' unless !is_position
-  
+    return 'I have no idea what you are talking about' unless is_position
+
     if tokens.last == '?'
       infer(tokens, is_position)
     elsif tokens.last == 'Credits'

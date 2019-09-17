@@ -8,13 +8,13 @@ RSpec.describe 'TokenValidator' do
   let(:roman_x) { Token.new('X', 10) }
   let(:galaxy_number) { Token.new('glub', 4) }
 
-  describe '#roman?' do
+  describe '.roman?' do
     subject(:roman) { TokenValidator.roman?(value) }
 
     context 'when number is roman' do
       let(:value) { 10 }
 
-      it 'Returns true' do
+      it 'returns true' do
         expect(roman).to eq(true)
       end
     end
@@ -22,20 +22,20 @@ RSpec.describe 'TokenValidator' do
     context 'when number is not roman' do
       let(:value) { 3 }
 
-      it 'Returns true' do
+      it 'returns true' do
         expect(roman).to eq(false)
       end
     end
   end
 
-  describe '#valid_roman_precedence?' do
+  describe '.valid_roman_precedence?' do
     subject(:valid) { TokenValidator.valid_roman_precedence?(value, buffer) }
 
     context 'when the buffer is empty' do
       let(:value) { 1 }
       let(:buffer) { [] }
 
-      it 'Returns true' do
+      it 'returns true' do
         expect(valid).to eq(true)
       end
     end
@@ -44,7 +44,7 @@ RSpec.describe 'TokenValidator' do
       let(:value) { 5 }
       let(:buffer) { [roman_i] }
 
-      it 'Returns true' do
+      it 'returns true' do
         expect(valid).to eq(true)
       end
 
@@ -52,7 +52,7 @@ RSpec.describe 'TokenValidator' do
         let(:value) { 1 }
         let(:buffer) { [roman_v] }
 
-        it 'Returns true' do
+        it 'returns true' do
           expect(valid).to eq(true)
         end
       end
@@ -61,7 +61,7 @@ RSpec.describe 'TokenValidator' do
         let(:value) { 5 }
         let(:buffer) { [roman_i] }
 
-        it 'Returns true' do
+        it 'returns true' do
           expect(valid).to eq(true)
         end
       end
@@ -70,7 +70,7 @@ RSpec.describe 'TokenValidator' do
         let(:value) { 10 }
         let(:buffer) { [roman_i] }
 
-        it 'Returns false' do
+        it 'returns false' do
           expect(valid).to eq(false)
         end
       end
@@ -81,21 +81,21 @@ RSpec.describe 'TokenValidator' do
         let(:value) { 1 }
         let(:buffer) { [roman_i, roman_i, roman_i] }
 
-        it 'Returns false' do
+        it 'returns false' do
           expect(valid).to eq(false)
         end
       end
     end
   end
 
-  describe '#valid_token_push?' do
+  describe '.valid_token_push?' do
     subject(:valid) { TokenValidator.valid_token_push?(value, buffer) }
 
     context 'when number what do you want push is not roman' do
       let(:value) { galaxy_number }
       let(:buffer) { [roman_i] }
 
-      it 'Returns true' do
+      it 'returns true' do
         expect(valid).to eq(true)
       end
     end
@@ -104,7 +104,7 @@ RSpec.describe 'TokenValidator' do
       let(:value) { roman_v }
       let(:buffer) { [] }
 
-      it 'Returns true' do
+      it 'returns true' do
         expect(valid).to eq(true)
       end
     end
@@ -114,7 +114,7 @@ RSpec.describe 'TokenValidator' do
         let(:value) { roman_v }
         let(:buffer) { [roman_i] }
 
-        it 'Returns true' do
+        it 'returns true' do
           expect(valid).to eq(true)
         end
       end
@@ -123,7 +123,7 @@ RSpec.describe 'TokenValidator' do
         let(:value) { roman_x }
         let(:buffer) { [roman_i] }
 
-        it 'Returns false' do
+        it 'returns false' do
           expect(valid).to eq(false)
         end
       end

@@ -7,11 +7,11 @@ RSpec.describe 'Dictionary' do
   let(:word_value) { 52 }
   let(:dictionary) { Dictionary.new }
 
-  describe '.add_word' do
+  describe '#add_word' do
     subject(:add_word) { dictionary.add_word(word_name, word_value) }
 
     context 'when words is empty' do
-      it 'Dictionary.words is equal 52}' do
+      it 'add the new word' do
         expect(add_word).to eq(52)
       end
     end
@@ -25,11 +25,11 @@ RSpec.describe 'Dictionary' do
         subject
       end
 
-      it 'adds the new word to dictionary' do
+      it 'add the new word' do
         expect(add_word).to eq(30)
       end
 
-      it 'dictionary.words have 2 words' do
+      it 'push the two words' do
         expect(dictionary.words).to eq('Plac' => 52, 'TumTum' => 30)
       end
     end

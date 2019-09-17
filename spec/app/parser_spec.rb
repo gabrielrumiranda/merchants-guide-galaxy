@@ -6,24 +6,24 @@ RSpec.describe 'Parser' do
   let(:tokens) { 'glob is I'.split(' ') }
   let(:tokens_is_position) { tokens.find_index('is') }
   let(:dictionary) { Dictionary.new }
-  describe '.parse_roman_number' do
+  describe '#parse_roman_number' do
     subject(:parser) do
       Parser.new(dictionary: dictionary)
             .parse_roman_number(tokens, tokens_is_position)
     end
 
-    context 'Parse a invalid Line' do
+    context 'when line is valid' do
       before do
         dictionary.words.clear
         subject
       end
 
-      it 'dictionary.words is equal (glob => 1) ' do
+      it 'add new word in dictionary ' do
         expect(dictionary.words).to eq('glob' => 1)
       end
     end
 
-    context 'Parse a invalid Line' do
+    context 'when line  is invalid' do
       let(:tokens) { 'asdsd asdasd is asdsd aasdsad'.split(' ') }
 
       before do
@@ -36,12 +36,12 @@ RSpec.describe 'Parser' do
     end
   end
 
-  describe '.parse_galaxy_number' do
+  describe '#parse_galaxy_number' do
     subject(:parser) do
       Parser.new(dictionary: dictionary)
             .parse_galaxy_number(tokens, tokens_is_position)
     end
-    context 'Parse a valid Line' do
+    context 'when line is valid' do
       let(:tokens) { 'glob glob Silver is 34 Credits'.split(' ') }
 
       before do
@@ -49,43 +49,43 @@ RSpec.describe 'Parser' do
         subject
       end
 
-      it 'dictionary.word is equal (glob => 1, Silver => 17) ' do
+      it 'add the new word in dictionary ' do
         expect(dictionary.words).to eq('glob' => 1, 'Silver' => 17)
       end
     end
 
-    context 'Parse a invalid Line' do
+    context 'when line is invalid' do
       let(:tokens) { 'asdsd asdasd is asdsd aasdsad'.split(' ') }
 
       before do
         subject
       end
 
-      it 'Dictionary is empty' do
+      it 'dictionary is empty' do
         expect(dictionary.words).to be_empty
       end
     end
   end
 
-  describe '.infer' do
+  describe '#infer' do
     subject(:parser) do
       Parser.new(dictionary: dictionary)
             .infer(tokens, tokens_is_position)
     end
 
-    context 'Infer a valid Line' do
+    context 'when line is valid' do
       let(:tokens) { 'how much is glob glob glob ?'.split(' ') }
 
       before do
         dictionary.words['glob'] = 1
       end
 
-      it 'Returns 3' do
+      it 'Returns the value inferred' do
         expect(parser).to eq(3)
       end
     end
 
-    context 'Infer a invalid Line' do
+    context 'when line is invalid' do
       let(:tokens) { 'glob glob glob ?'.split(' ') }
 
       before do
@@ -97,7 +97,7 @@ RSpec.describe 'Parser' do
       end
     end
 
-    context 'Infer a valid Line with unknow numbers' do
+    context 'when line have unknow numbers' do
       let(:tokens) { 'how much is glob glob glob ?'.split(' ') }
 
       it 'Returns 0' do
@@ -106,13 +106,13 @@ RSpec.describe 'Parser' do
     end
   end
 
-  describe '.calculate_preliminar_number' do
+  describe '#calculate_preliminar_number' do
     subject(:parser) do
       Parser.new(dictionary: dictionary)
             .calculate_preliminar_number(tokens)
     end
 
-    context 'when the tokens is empty' do
+    context 'when tokens is empty' do
       let(:tokens) { [] }
 
       it 'Returns 0' do
@@ -120,20 +120,20 @@ RSpec.describe 'Parser' do
       end
     end
 
-    context 'when the tokens is not empty' do
+    context 'when tokens is not empty' do
       let(:tokens) { %w[glob glob] }
 
       before do
         dictionary.words['glob'] = 1
       end
 
-      it 'Returns 2' do
+      it 'Returns the value of word' do
         expect(parser).to eq(2)
       end
     end
   end
 
-  describe '.parser' do
+  describe '#parser' do
     subject(:parser) { Parser.new(dictionary: dictionary).parse(tokens) }
 
     context 'when the file_line is empty' do
@@ -163,7 +163,7 @@ RSpec.describe 'Parser' do
         expect(parser).to eq('-')
       end
 
-      it 'dictionary.word is equal (glob => 1) ' do
+      it 'dictionary.word is equal inferred value ' do
         expect(dictionary.words).to eq('glob' => 1)
       end
     end
@@ -181,7 +181,7 @@ RSpec.describe 'Parser' do
           expect(parser).to eq('-')
         end
 
-        it 'dictionary.word is equal (Silver => 17.0, glob => 1) ' do
+        it 'dictionary.word is equal inferred values' do
           expect(dictionary.words).to eq('Silver' => 17.0, 'glob' => 1)
         end
       end
@@ -207,7 +207,7 @@ RSpec.describe 'Parser' do
           dictionary.words['glob'] = 1
         end
 
-        it 'Returns 3 ' do
+        it 'Returns the awnser of line ' do
           expect(parser).to eq(3)
         end
       end

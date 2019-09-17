@@ -9,18 +9,18 @@ RSpec.describe 'Line' do
   let(:galaxy_number) { Token.new('glub', 2) }
   let(:line) { Line.new }
 
-  describe '.push' do
+  describe '#push' do
     subject(:push) { line.push(token) }
 
-    context 'when token is empty' do
+    context 'when tokens is empty' do
       let(:token) { roman_x }
 
-      it 'Line.tokens is equal a array with the pushed tokens' do
+      it 'returns the pushed token' do
         expect(push).to eq([roman_x])
       end
     end
 
-    context 'Tokens is not empty and push some token' do
+    context 'when tokens is not empty' do
       let(:token) { roman_x }
 
       before do
@@ -28,19 +28,19 @@ RSpec.describe 'Line' do
         push
       end
 
-      it 'Returns a array with the two pushed tokens' do
+      it 'returns the pushed tokens' do
         expect(push).to eq([roman_i, roman_x])
       end
     end
   end
 
-  describe '.add_buffer' do
+  describe '#add_buffer' do
     subject(:add_buffer) { line.add_buffer(token) }
 
-    context 'Tokens is empty and push some token to buffer' do
+    context 'when tokens is empty' do
       let(:token) { roman_x }
 
-      it 'Line.tokens is equal the added token' do
+      it 'returns the added token' do
         expect(add_buffer).to eql([roman_x])
       end
 
@@ -53,54 +53,56 @@ RSpec.describe 'Line' do
       end
     end
 
-    context 'Have a Roman number in buffer and push a bigger roman number' do
-      let(:token) { roman_v }
+    context 'when have a roman number in buffer' do
+      context 'and push a bigger roman number' do
+        let(:token) { roman_v }
 
-      before do
-        line.add_buffer(roman_i)
-        add_buffer
+        before do
+          line.add_buffer(roman_i)
+          add_buffer
+        end
+
+        it 'returns the added tokens' do
+          expect(add_buffer).to eq([roman_i, roman_v])
+        end
+
+        it 'Line.accumulate is equal 4' do
+          expect(line.accumulate).to eq(4)
+        end
       end
 
-      it 'Line.tokens is equal the added tokens' do
-        expect(add_buffer).to eq([roman_i, roman_v])
+      context 'and push a smaller roman number' do
+        let(:token) { roman_v }
+
+        before do
+          line.add_buffer(roman_x)
+          add_buffer
+        end
+
+        it 'returns the added tokens' do
+          expect(add_buffer).to eq([roman_x, roman_v])
+        end
+
+        it 'Line.accumulate is equal 15' do
+          expect(line.accumulate).to eq(15)
+        end
       end
 
-      it 'Line.accumulate is equal 4' do
-        expect(line.accumulate).to eq(4)
-      end
-    end
+      context 'and push a galaxy number' do
+        let(:token) { galaxy_number }
 
-    context 'Have a Roman number in buffer and push a smaller roman number' do
-      let(:token) { roman_v }
+        before do
+          line.add_buffer(roman_x)
+          add_buffer
+        end
 
-      before do
-        line.add_buffer(roman_x)
-        add_buffer
-      end
+        it 'returns the added tokens' do
+          expect(add_buffer).to eq([roman_x, galaxy_number])
+        end
 
-      it 'Line.tokens is equal the added tokens' do
-        expect(add_buffer).to eq([roman_x, roman_v])
-      end
-
-      it 'Line.accumulate is equal 15' do
-        expect(line.accumulate).to eq(15)
-      end
-    end
-
-    context 'Have a Roman number in buffer and push a galaxy number' do
-      let(:token) { galaxy_number }
-
-      before do
-        line.add_buffer(roman_x)
-        add_buffer
-      end
-
-      it 'Line.tokens is equal the added tokens' do
-        expect(add_buffer).to eq([roman_x, galaxy_number])
-      end
-
-      it 'Line.accumulate is equal 20' do
-        expect(line.accumulate).to eq(20)
+        it 'Line.accumulate is equal 20' do
+          expect(line.accumulate).to eq(20)
+        end
       end
     end
 
