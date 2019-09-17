@@ -40,12 +40,12 @@ RSpec.describe 'Line' do
     context 'when tokens is empty' do
       let(:token) { roman_x }
 
-      it 'returns the added token' do
-        expect(add_buffer).to eql([roman_x])
-      end
-
       before do
         add_buffer
+      end
+
+      it 'returns the added token' do
+        expect(add_buffer).to eql([roman_x])
       end
 
       it 'Line.accumulate is equal 10' do

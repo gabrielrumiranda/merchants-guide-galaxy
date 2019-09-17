@@ -35,23 +35,13 @@ class Parser
     end
   end
 
-  def can_parse?(file_line)
-    tokens = file_line.split(' ')
-    is_position = tokens.find_index('is')
-    if !is_position
-      'I have no idea what you are talking about'
-    else
-      [tokens, is_position]
-    end
-  end
-
   def parse_roman_number!(tokens, is_position)
     return unless is_position
 
     roman_number = tokens[is_position + 1]
     galaxy_number = tokens[is_position - 1]
     roman_value = ROMAN_MAP[roman_number]
-    if roman_number
+    if roman_value
       @dictionary.add_word!(galaxy_number, roman_value)
     else
       puts "the romans don't know this number"

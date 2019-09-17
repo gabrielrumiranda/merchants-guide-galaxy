@@ -15,7 +15,7 @@ RSpec.describe 'Parser' do
     context 'when line is valid' do
       before do
         dictionary.words.clear
-        subject
+        parser
       end
 
       it 'add new word in dictionary ' do
@@ -23,11 +23,11 @@ RSpec.describe 'Parser' do
       end
     end
 
-    context 'when line  is invalid' do
+    context 'when line is invalid' do
       let(:tokens) { 'asdsd asdasd is asdsd aasdsad'.split(' ') }
 
       before do
-        subject
+        parser
       end
 
       it 'dictionary.word is empty' do
@@ -46,7 +46,7 @@ RSpec.describe 'Parser' do
 
       before do
         dictionary.words['glob'] = 1
-        subject
+        parser
       end
 
       it 'add the new word in dictionary ' do
@@ -58,7 +58,7 @@ RSpec.describe 'Parser' do
       let(:tokens) { 'asdsd asdasd is asdsd aasdsad'.split(' ') }
 
       before do
-        subject
+        parser
       end
 
       it 'dictionary is empty' do

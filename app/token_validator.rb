@@ -31,7 +31,7 @@ class TokenValidator
       last_numbers = buffer.last(3)
       return true if last_numbers.size < 3
 
-      return last_numbers.uniq.size > 1 if last_numbers.size >= 3
+      last_numbers.uniq.size > 1
     end
   end
 end
