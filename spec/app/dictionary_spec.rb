@@ -22,7 +22,6 @@ RSpec.describe Dictionary do
 
       before do
         dictionary.words['Plac'] = 52
-        add_word
       end
 
       it 'add the new word' do
@@ -30,6 +29,7 @@ RSpec.describe Dictionary do
       end
 
       it 'push the two words' do
+        add_word
         expect(dictionary.words).to eq('Plac' => 52, 'TumTum' => 30)
       end
     end

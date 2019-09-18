@@ -155,15 +155,12 @@ RSpec.describe Parser do
     context 'when the file_line is a roman number defintion' do
       let(:tokens) { 'glob is I' }
 
-      before do
-        parser
-      end
-
       it 'Returns "-" ' do
         expect(parser).to eq('-')
       end
 
       it 'dictionary.word is equal inferred value ' do
+        parser
         expect(dictionary.words).to eq('glob' => 1)
       end
     end
@@ -174,7 +171,6 @@ RSpec.describe Parser do
 
         before do
           dictionary.words['glob'] = 1
-          parser
         end
 
         it 'Returns "-" ' do
@@ -182,6 +178,7 @@ RSpec.describe Parser do
         end
 
         it 'dictionary.word is equal inferred values' do
+          parser
           expect(dictionary.words).to eq('Silver' => 17.0, 'glob' => 1)
         end
       end

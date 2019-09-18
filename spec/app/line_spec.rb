@@ -39,15 +39,12 @@ RSpec.describe Line do
     context 'when tokens is empty' do
       let(:token) { roman_x }
 
-      before do
-        add_buffer
-      end
-
       it 'returns the added token' do
         expect(add_buffer).to eql([roman_x])
       end
 
       it 'Line.accumulate is equal 10' do
+        add_buffer
         expect(line.accumulate).to eq(10)
       end
     end
@@ -58,7 +55,6 @@ RSpec.describe Line do
 
         before do
           line.add_buffer!(roman_i)
-          add_buffer
         end
 
         it 'returns the added tokens' do
@@ -66,6 +62,7 @@ RSpec.describe Line do
         end
 
         it 'Line.accumulate is equal 4' do
+          add_buffer
           expect(line.accumulate).to eq(4)
         end
       end
@@ -75,7 +72,6 @@ RSpec.describe Line do
 
         before do
           line.add_buffer!(roman_x)
-          add_buffer
         end
 
         it 'returns the added tokens' do
@@ -83,6 +79,7 @@ RSpec.describe Line do
         end
 
         it 'Line.accumulate is equal 15' do
+          add_buffer
           expect(line.accumulate).to eq(15)
         end
       end
@@ -92,7 +89,6 @@ RSpec.describe Line do
 
         before do
           line.add_buffer!(roman_x)
-          add_buffer
         end
 
         it 'returns the added tokens' do
@@ -100,6 +96,7 @@ RSpec.describe Line do
         end
 
         it 'Line.accumulate is equal 20' do
+          add_buffer
           expect(line.accumulate).to eq(20)
         end
       end
@@ -113,7 +110,6 @@ RSpec.describe Line do
           line.add_buffer!(roman_x)
           line.add_buffer!(roman_x)
           line.add_buffer!(roman_x)
-          add_buffer
         end
 
         it 'Returns nil' do
@@ -121,6 +117,7 @@ RSpec.describe Line do
         end
 
         it 'Line.accumulate is equal 30' do
+          add_buffer
           expect(line.accumulate).to eq(30)
         end
       end
@@ -131,7 +128,6 @@ RSpec.describe Line do
 
       before do
         line.add_buffer!(roman_i)
-        add_buffer
       end
 
       it 'Returns nil' do
@@ -139,6 +135,7 @@ RSpec.describe Line do
       end
 
       it 'Line.accumulate is equal 1' do
+        add_buffer
         expect(line.accumulate).to eq(1)
       end
     end
