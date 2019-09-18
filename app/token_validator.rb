@@ -20,18 +20,18 @@ class TokenValidator
 
       return last_index + 1 == index_value if last_index < index_value
 
-      valid_three_number_rule?(buffer)
+      valid_three_number_rule?(value, buffer)
     end
 
     def roman?(value)
       ROMAN_VALUES.include?(value)
     end
 
-    def valid_three_number_rule?(buffer)
+    def valid_three_number_rule?(value, buffer)
       last_numbers = buffer.last(3)
       return true if last_numbers.size < 3
 
-      last_numbers.uniq.size > 1
+      last_numbers.count(value) >= 3
     end
   end
 end
