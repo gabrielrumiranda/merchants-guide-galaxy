@@ -11,4 +11,3 @@ group :test do
   gem 'rubocop'
 end
 
-Bundler.require(:default, :test)
