@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'pry'
-require 'rspec/collection_matchers'
 require 'simplecov'
 SimpleCov.start
 

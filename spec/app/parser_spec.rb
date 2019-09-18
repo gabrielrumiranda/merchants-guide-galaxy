@@ -11,7 +11,6 @@ RSpec.describe Parser do
     subject(:parser) do
       described_class.new(dictionary: dictionary)
                      .parse_roman_number!(tokens, tokens_is_position)
-
     end
 
     context 'when line is valid' do
