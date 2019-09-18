@@ -140,4 +140,56 @@ RSpec.describe Line do
       end
     end
   end
+
+  describe '#calculate_accumulate_tokens!' do
+    subject(:accumulate_tokens) { line.calculate_accumulate_tokens(token) }
+
+    context 'When you dont have tokens in buffer' do
+      context 'and you add a token in buffer' do
+        let(:token) { roman_x }
+
+        it 'Returns value of token' do
+          expect(accumulate_tokens).to eq(token.value)
+        end
+      end
+    end
+
+    context 'When you have a token in buffer' do
+      context 'and you add a galaxy number' do
+        let(:token) { galaxy_number }
+
+        before do
+          line.add_buffer!(roman_v)
+        end
+
+        it 'returns the value accumulated ' do
+          expect(accumulate_tokens).to eq(10)
+        end
+      end
+
+      context 'and you add a roman number bigger than last in buffer' do
+        let(:token) { roman_v }
+
+        before do
+          line.add_buffer!(roman_i)
+        end
+
+        it 'returns the value accumulated ' do
+          expect(accumulate_tokens).to eq(4)
+        end
+      end
+
+      context 'and you add a roman number smaller than last in buffer' do
+        let(:token) { roman_i }
+
+        before do
+          line.add_buffer!(roman_v)
+        end
+
+        it 'returns the value accumulated ' do
+          expect(accumulate_tokens).to eq(6)
+        end
+      end
+    end
+  end
 end

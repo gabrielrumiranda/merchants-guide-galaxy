@@ -19,18 +19,16 @@ class Line
     unless token.value && TokenValidator.valid_token_push?(token, @tokens)
       return nil
     end
-    if @tokens.last
-      calculate_accumulate_tokens(token)
-    else
-      @accumulate += token.value
-    end
+
+    calculate_accumulate_tokens(token)
+
     @tokens.push(token)
   end
 
   def calculate_accumulate_tokens(token)
     if !TokenValidator.roman?(token.value)
       @accumulate *= token.value
-    elsif @tokens.last.value >= token.value
+    elsif !@tokens.last || @tokens.last.value >= token.value
       @accumulate += token.value
     else
       @accumulate = token.value - @accumulate

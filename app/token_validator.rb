@@ -19,7 +19,7 @@ class TokenValidator
       return true if last_index > index_value
 
       return last_index + 1 == index_value if last_index < index_value
-      
+
       valid_three_number_rule?(value, buffer)
     end
 
