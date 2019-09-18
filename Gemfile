@@ -8,4 +8,3 @@ group :test do
   gem 'codecov', '~> 0.1.14'
   gem 'rake'
 end
-
