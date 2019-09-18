@@ -8,6 +8,7 @@ RSpec.describe Calculator do
   describe '#calculate!' do
     subject(:calculator) do
       described_class.new(repository: repository).calculate!
+      
     end
 
     context 'when the path is invalid' do
