@@ -129,4 +129,37 @@ RSpec.describe TokenValidator do
       end
     end
   end
+
+  describe '.valid_three_number_rule?' do
+    subject(:valid) { described_class.valid_three_number_rule?(value, buffer) }
+
+    context 'when buffer size is less than 3' do
+      let(:value) { 10 }
+      let(:buffer) { [] }
+
+      it 'returns true' do
+        expect(valid).to eq(true)
+      end
+    end
+
+    context 'when the same value occurs more than 3 times in buffer' do
+      context 'and the value you try add is the same number' do
+        let(:value) { 5 }
+        let(:buffer) { [roman_x, roman_v, roman_v, roman_v] }
+
+        it 'returns false' do
+          expect(valid).to eq(false)
+        end
+      end
+
+      context 'and the value you try add other number' do
+        let(:value) { 1 }
+        let(:buffer) { [roman_x, roman_v, roman_v, roman_v] }
+
+        it 'returns true' do
+          expect(valid).to eq(true)
+        end
+      end
+    end
+  end
 end

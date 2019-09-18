@@ -19,7 +19,7 @@ class TokenValidator
       return true if last_index > index_value
 
       return last_index + 1 == index_value if last_index < index_value
-
+      
       valid_three_number_rule?(value, buffer)
     end
 
@@ -29,9 +29,10 @@ class TokenValidator
 
     def valid_three_number_rule?(value, buffer)
       last_numbers = buffer.last(3)
+      repeated_token_count = last_numbers.count { |token| token.value == value }
       return true if last_numbers.size < 3
 
-      last_numbers.count(value) >= 3
+      repeated_token_count < 3
     end
   end
 end

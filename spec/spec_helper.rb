@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-
+require 'pry'
 require 'rspec/collection_matchers'
 
 require_relative '../app/line'

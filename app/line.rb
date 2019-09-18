@@ -19,13 +19,11 @@ class Line
     unless token.value && TokenValidator.valid_token_push?(token, @tokens)
       return nil
     end
-
     if @tokens.last
       calculate_accumulate_tokens(token)
     else
       @accumulate += token.value
     end
-
     @tokens.push(token)
   end
 
