@@ -8,6 +8,6 @@ group :test do
   gem 'rake'
   gem 'rspec', '~> 3.8'
   gem 'rspec-collection_matchers'
-  gem 'rubocop'
+  gem 'rubocop', require: false
+  gem 'simplecov'
 end
-

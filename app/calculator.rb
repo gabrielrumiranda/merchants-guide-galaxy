@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require_relative './parser'
-require_relative './input_repository.rb'
+require_relative './input_repository'
 
 class Calculator
   def initialize(parser: Parser.new, repository: InputRepository.new)

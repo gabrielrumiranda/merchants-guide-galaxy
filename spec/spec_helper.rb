@@ -1,10 +1,12 @@
 # frozen_string_literal: true
-Bundler.require(:default, :test)
-require 'simplecov'
-SimpleCov.start
 
+require 'simplecov'
+require 'bundler'
 require 'codecov'
+
+SimpleCov.start
 SimpleCov.formatter = SimpleCov::Formatter::Codecov
+Bundler.require(:default, :test)
 
 require_relative '../app/line'
 require_relative '../app/token'

@@ -61,6 +61,7 @@ DEPENDENCIES
   rspec (~> 3.8)
   rspec-collection_matchers
   rubocop
+  simplecov
 
 BUNDLED WITH
    2.0.2
