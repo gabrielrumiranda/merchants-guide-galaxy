@@ -6,17 +6,17 @@ RSpec.describe Parser do
   let(:tokens) { 'glob is I'.split(' ') }
   let(:tokens_is_position) { tokens.find_index('is') }
   let(:dictionary) { Dictionary.new }
+  let(:parser) { described_class.new(dictionary: dictionary) }
 
   describe '#parse_roman_number!' do
-    subject(:parser) do
-      described_class.new(dictionary: dictionary)
-                     .parse_roman_number!(tokens, tokens_is_position)
+    subject(:parse_roman_number) do
+      parser.parse_roman_number!(tokens, tokens_is_position)
     end
 
     context 'when line is valid' do
       before do
         dictionary.words.clear
-        parser
+        parse_roman_number
       end
 
       it 'add new word in dictionary ' do
@@ -28,7 +28,7 @@ RSpec.describe Parser do
       let(:tokens) { 'asdsd asdasd is asdsd aasdsad'.split(' ') }
 
       before do
-        parser
+        parse_roman_number
       end
 
       it 'dictionary.word is empty' do
@@ -38,16 +38,16 @@ RSpec.describe Parser do
   end
 
   describe '#parse_galaxy_number!' do
-    subject(:parser) do
-      Parser.new(dictionary: dictionary)
-            .parse_galaxy_number!(tokens, tokens_is_position)
+    subject(:parse_galaxy_number) do
+      parser.parse_galaxy_number!(tokens, tokens_is_position)
     end
+
     context 'when line is valid' do
       let(:tokens) { 'glob glob Silver is 34 Credits'.split(' ') }
 
       before do
         dictionary.words['glob'] = 1
-        parser
+        parse_galaxy_number
       end
 
       it 'add the new word in dictionary ' do
@@ -59,7 +59,7 @@ RSpec.describe Parser do
       let(:tokens) { 'asdsd asdasd is asdsd aasdsad'.split(' ') }
 
       before do
-        parser
+        parse_galaxy_number
       end
 
       it 'dictionary is empty' do
@@ -69,10 +69,7 @@ RSpec.describe Parser do
   end
 
   describe '#infer' do
-    subject(:parser) do
-      Parser.new(dictionary: dictionary)
-            .infer(tokens, tokens_is_position)
-    end
+    subject(:infer) { parser.infer(tokens, tokens_is_position) }
 
     context 'when line is valid' do
       let(:tokens) { 'how much is glob glob glob ?'.split(' ') }
@@ -82,7 +79,7 @@ RSpec.describe Parser do
       end
 
       it 'Returns the value inferred' do
-        expect(parser).to eq(3)
+        expect(infer).to eq(3)
       end
     end
 
@@ -94,7 +91,7 @@ RSpec.describe Parser do
       end
 
       it 'Returns 0' do
-        expect(parser).to eq(0)
+        expect(infer).to eq(0)
       end
     end
 
@@ -102,22 +99,21 @@ RSpec.describe Parser do
       let(:tokens) { 'how much is glob glob glob ?'.split(' ') }
 
       it 'Returns 0' do
-        expect(parser).to eq(0)
+        expect(infer).to eq(0)
       end
     end
   end
 
   describe '#calculate_preliminar_number' do
-    subject(:parser) do
-      Parser.new(dictionary: dictionary)
-            .calculate_preliminar_number(tokens)
+    subject(:calculate_preliminar_number) do
+      parser.calculate_preliminar_number(tokens)
     end
 
     context 'when tokens is empty' do
       let(:tokens) { [] }
 
       it 'Returns 0' do
-        expect(parser).to eq(0)
+        expect(calculate_preliminar_number).to eq(0)
       end
     end
 
@@ -129,19 +125,19 @@ RSpec.describe Parser do
       end
 
       it 'Returns the value of word' do
-        expect(parser).to eq(2)
+        expect(calculate_preliminar_number).to eq(2)
       end
     end
   end
 
   describe '#parse!' do
-    subject(:parser) { Parser.new(dictionary: dictionary).parse!(tokens) }
+    subject(:parse) { parser.parse!(tokens) }
 
     context 'when the file_line is empty' do
       let(:tokens) { '' }
 
       it 'Returns error message' do
-        expect(parser).to eq('I have no idea what you are talking about')
+        expect(parse).to eq('I have no idea what you are talking about')
       end
     end
 
@@ -149,7 +145,7 @@ RSpec.describe Parser do
       let(:tokens) { 'asdasdsadas asdasd' }
 
       it 'Returns error message' do
-        expect(parser).to eq('I have no idea what you are talking about')
+        expect(parse).to eq('I have no idea what you are talking about')
       end
     end
 
@@ -157,11 +153,11 @@ RSpec.describe Parser do
       let(:tokens) { 'glob is I' }
 
       it 'Returns "-" ' do
-        expect(parser).to eq('-')
+        expect(parse).to eq('-')
       end
 
       it 'dictionary.word is equal inferred value ' do
-        parser
+        parse
         expect(dictionary.words).to eq('glob' => 1)
       end
     end
@@ -175,11 +171,11 @@ RSpec.describe Parser do
         end
 
         it 'Returns "-" ' do
-          expect(parser).to eq('-')
+          expect(parse).to eq('-')
         end
 
         it 'dictionary.word is equal inferred values' do
-          parser
+          parse
           expect(dictionary.words).to eq('Silver' => 17.0, 'glob' => 1)
         end
       end
@@ -188,7 +184,7 @@ RSpec.describe Parser do
         let(:tokens) { 'glob glob Silver is 34 Credits' }
 
         it 'Returns "-" ' do
-          expect(parser).to eq('-')
+          expect(parse).to eq('-')
         end
 
         it 'dictionary.word is empty' do
@@ -206,7 +202,7 @@ RSpec.describe Parser do
         end
 
         it 'Returns the awnser of line ' do
-          expect(parser).to eq(3)
+          expect(parse).to eq(3)
         end
       end
 
@@ -214,7 +210,7 @@ RSpec.describe Parser do
         let(:tokens) { 'how much is glob glob glob ?' }
 
         it 'Returns 0 ' do
-          expect(parser).to eq(0)
+          expect(parse).to eq(0)
         end
       end
     end
