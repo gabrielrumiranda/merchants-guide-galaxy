@@ -3,14 +3,16 @@
 require_relative '../spec_helper'
 
 RSpec.describe InputRepository do
+  let(:repository) { InputRepository.new(path) }
+
   describe '#read' do
-    subject(:read_lines) { described_class.new(path).read }
+    subject(:read) { repository.read }
 
     context 'when the given file is not empty' do
       let(:path) { 'spec/files_spec/test2.txt' }
 
       it 'returns the read lines' do
-        expect(read_lines).to eq ['glob is I', 'prok is V']
+        expect(read).to eq ['glob is I', 'prok is V']
       end
     end
 
