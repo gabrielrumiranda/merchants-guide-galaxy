@@ -140,7 +140,7 @@ RSpec.describe Parser do
     context 'when the file_line is empty' do
       let(:tokens) { '' }
 
-      it 'Returns "I have no idea what you are talking about"' do
+      it 'Returns error message' do
         expect(parser).to eq('I have no idea what you are talking about')
       end
     end
@@ -148,7 +148,7 @@ RSpec.describe Parser do
     context 'when the file_line is invalid' do
       let(:tokens) { 'asdasdsadas asdasd' }
 
-      it 'Returns "I have no idea what you are talking about"' do
+      it 'Returns error message' do
         expect(parser).to eq('I have no idea what you are talking about')
       end
     end
