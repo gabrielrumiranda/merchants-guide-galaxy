@@ -3,7 +3,8 @@
 require_relative './app/calculator'
 require_relative './app/input_repository'
 
-repository = InputRepository.new('spec/files_spec/test.txt')
+repository = InputRepository.new
+repository.read_user_input
 calculator = Calculator.new(repository: repository)
 calculator.calculate!
 calculator.print

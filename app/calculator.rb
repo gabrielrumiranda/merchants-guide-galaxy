@@ -8,7 +8,7 @@ class Calculator
     @parser = parser
     @repository = repository
     @parsed_lines = []
-    @file_lines = @repository.read
+    @file_lines = @repository.read_file
   end
 
   def calculate!
