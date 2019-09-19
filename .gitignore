@@ -1,7 +1,5 @@
 # Coverage reports
-coverage
-coverage/
-coverage/*
+coverage/**
 coverage
 *.lcov
 .nyc_output/*.json
