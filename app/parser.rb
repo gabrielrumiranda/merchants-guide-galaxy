@@ -4,88 +4,85 @@ require_relative './line'
 require_relative './token'
 require_relative './dictionary'
 
-#
 class Parser
-  attr_reader :line
-  
-  def initialize
-    @dictionary = Dictionary.new
+  ROMAN_MAP = {
+    'I' => 1,
+    'V' => 5,
+    'X' => 10,
+    'L' => 50,
+    'C' => 100,
+    'D' => 500,
+    'M' => 1000
+  }.freeze
+
+  def initialize(dictionary: Dictionary.new)
+    @dictionary = dictionary
   end
 
-  def parse(file_line)
+  def parse!(file_line)
     tokens = file_line.split(' ')
-    is_position = tokens.find_index('is')
-    if !is_position
-      'I have no idea what you are talking about'
-    elsif tokens.last == '?'
-      infer(tokens, is_position)
+    position_of_is = tokens.find_index('is')
+    return 'I have no idea what you are talking about' unless position_of_is
+
+    if tokens.last == '?'
+      infer(tokens, position_of_is)
     elsif tokens.last == 'Credits'
-      parse_galaxy_number(tokens, is_position)
+      parse_galaxy_number!(tokens, position_of_is)
       '-'
     else
-      parse_roman_number(tokens, is_position)
+      parse_roman_number!(tokens, position_of_is)
       '-'
     end
   end
 
-  def parse_roman_number(tokens, is_position)
-    roman_number = tokens[is_position + 1]
-    galaxy_number = tokens[is_position - 1]
+  def parse_roman_number!(tokens, position_of_is)
+    return unless position_of_is
 
-    case roman_number
-    when 'I'
-      @dictionary.add_word(galaxy_number, 1)
-    when 'V'
-      @dictionary.add_word(galaxy_number, 5)
-    when 'X'
-      @dictionary.add_word(galaxy_number, 10)
-    when 'L'
-      @dictionary.add_word(galaxy_number, 50)
-    when 'C'
-      @dictionary.add_word(galaxy_number, 100)
-    when 'D'
-      @dictionary.add_word(galaxy_number, 500)
-    when 'M'
-      @dictionary.add_word(galaxy_number, 1000)
-
+    roman_number = tokens[position_of_is + 1]
+    galaxy_number = tokens[position_of_is - 1]
+    roman_value = ROMAN_MAP[roman_number]
+    if roman_value
+      @dictionary.add_word!(galaxy_number, roman_value)
     else
       puts "the romans don't know this number"
     end
   end
 
-  def parse_galaxy_number(tokens, is_position)
-    galaxy_number = tokens[0, is_position]
-    result = tokens[is_position + 1]
+  def parse_galaxy_number!(tokens, position_of_is)
+    return unless position_of_is
+
+    galaxy_number = tokens[0, position_of_is]
+    result = tokens[position_of_is + 1]
     galaxy_number.each do |number|
-      number_value = @dictionary.words[number]
-      next if number_value
+      next if @dictionary.words[number]
 
       preliminar_number = galaxy_number.reject { |n| n == number }
       preliminar_result = calculate_preliminar_number(preliminar_number)
-      @dictionary.add_word(number, Integer(result) / preliminar_result.to_f)
+      next if preliminar_result.zero?
+
+      @dictionary.add_word!(number, Integer(result) / preliminar_result.to_f)
     end
   end
 
   def calculate_preliminar_number(tokens)
     line = Line.new
     tokens.each do |n|
-      line.add_buffer(Token.new(n, @dictionary.words[n]))
+      line.add_buffer!(Token.new(n, @dictionary.words[n]))
     end
     line.accumulate
   end
 
-  def infer(tokens, is_position)
+  def infer(tokens, position_of_is)
+    return 0 unless position_of_is
+
     line = Line.new
     tokens.delete('?')
-    galaxy_number = tokens[is_position + 1, tokens.size]
+    galaxy_number = tokens[position_of_is + 1, tokens.size]
     galaxy_number.each do |token|
-      number_value = @dictionary.words.fetch(token)
-      if !number_value
-        puts 'I have no idea what you are talking about'
-        break
-      else
-        line.add_buffer(Token.new(token, number_value))
-      end
+      number_value = @dictionary.words[token]
+      break unless number_value
+
+      line.add_buffer!(Token.new(token, number_value))
     end
     line.accumulate
   end

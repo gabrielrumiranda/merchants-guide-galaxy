@@ -1,24 +1,19 @@
-class InputRepository 
-  attr_accessor :file_lines
+# frozen_string_literal: true
 
+class InputRepository
   def initialize(path = '')
-    unless path.nil? || path.empty?
-      puts path
-      @path = File.join(File.dirname(__FILE__), path)
-    end
-    @file_lines = []
+    @path = path
   end
 
-  def read
-    puts 'teste'
-    IO.foreach(@path) do |file_line|
-      next if file_line.nil? || file_line.empty?
+  def read_file
+    return [] unless File.file?(@path)
 
-      @file_lines << file_line
-    end
+    File.read(@path).split(/\n/).compact
   end
 
-  def path(path)
-    @path = File.join(File.dirname(__FILE__), path)
+  def read_user_input
+    puts 'Type the path of file who you want calculate'
+    @path = gets.chomp
+    read_file
   end
 end
