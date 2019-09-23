@@ -15,6 +15,5 @@ class InputRepository
     puts 'Type the path of file who you want calculate'
     @path = gets.chomp
     read_file
-
   end
 end
