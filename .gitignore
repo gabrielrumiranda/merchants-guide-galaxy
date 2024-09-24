@@ -1,0 +1,6 @@
+# Coverage reports
+coverage/**
+coverage
+*.lcov
+.nyc_output/*.json
+.nyc_output/processinfo
